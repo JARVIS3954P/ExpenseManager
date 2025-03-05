@@ -1,6 +1,6 @@
 package com.zidioDev.ExpenseManager.model;
 
-import com.zidioDev.ExpenseManager.model.Enums.ApprovalStatus;
+import com.zidioDev.ExpenseManager.model.enums.ApprovalStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

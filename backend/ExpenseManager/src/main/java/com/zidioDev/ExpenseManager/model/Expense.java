@@ -23,7 +23,7 @@ public class Expense {
     private Long id;
 
     @Column(nullable = false)
-    private String title;  // E.g., "Client Meeting Lunch"
+    private String title;  // E.g., "Grocery and household"
 
     @Column(nullable = false)
     private Double amount;

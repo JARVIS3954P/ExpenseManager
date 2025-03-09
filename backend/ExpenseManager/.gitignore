@@ -4,8 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# Ignore application.properties
+# Ignore the actual application.properties file
 src/main/resources/application.properties
+
+# Allow a sample configuration file
+!src/main/resources/application-sample.properties
 
 ### STS ###
 .apt_generated

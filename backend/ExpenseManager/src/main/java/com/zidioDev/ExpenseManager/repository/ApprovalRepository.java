@@ -1,15 +1,16 @@
 package com.zidioDev.ExpenseManager.repository;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import com.zidioDev.ExpenseManager.model.Approval;
+import com.zidioDev.ExpenseManager.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
-
-    List<Approval> findByApproverId(Long approverId);  // Fetch approvals assigned to a specific manager
-
-    @Query("SELECT a FROM Approval a WHERE a.expense.id = :expenseId")
-    Optional<Approval> findByExpenseId(@Param("expenseId") Long expenseId);
+    List<Approval> findByReviewer(User reviewer);
+    Optional<Approval> findByExpenseId(Long expenseId);
 }
 

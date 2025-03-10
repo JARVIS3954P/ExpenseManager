@@ -1,9 +1,11 @@
 package com.zidioDev.ExpenseManager.controller;
 
+import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
 import com.zidioDev.ExpenseManager.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,16 +17,21 @@ public class ApprovalController {
 
     @PostMapping("/{expenseId}/approve")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<String> approveExpense(@PathVariable Long expenseId) {
-        approvalService.approveExpense(expenseId);
-        return ResponseEntity.ok("Expense approved successfully");
+    public ResponseEntity<ApprovalDTO> approveExpense(@PathVariable Long expenseId, Authentication authentication) {
+        String role = authentication.getAuthorities().iterator().next().getAuthority();
+        ApprovalDTO approval = approvalService.approveExpense(expenseId, role);
+        return ResponseEntity.ok(approval);
     }
 
     @PostMapping("/{expenseId}/reject")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<String> rejectExpense(@PathVariable Long expenseId, @RequestParam String reason) {
-        approvalService.rejectExpense(expenseId, reason);
-        return ResponseEntity.ok("Expense rejected successfully");
+    public ResponseEntity<ApprovalDTO> rejectExpense(
+            @PathVariable Long expenseId,
+            @RequestParam String reason,
+            Authentication authentication) {
+        String role = authentication.getAuthorities().iterator().next().getAuthority();
+        ApprovalDTO approval = approvalService.rejectExpense(expenseId, role, reason);
+        return ResponseEntity.ok(approval);
     }
 }
 

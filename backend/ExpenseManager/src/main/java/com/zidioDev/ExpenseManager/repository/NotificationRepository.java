@@ -13,11 +13,11 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    List<Notification> findByUserIdAndSeenFalse(Long userId);  // Fetch unread notifications
+    List<Notification> findByRecipientIdAndReadFalse(String recipientId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Notification n SET n.seen = TRUE WHERE n.userId = :userId")
-    void markNotificationsAsRead(@Param("userId") Long userId);
+    @Query("UPDATE Notification n SET n.read = TRUE WHERE n.recipientId = :recipientId")
+    void markNotificationsAsRead(@Param("recipientId") String recipientId);
 }
 

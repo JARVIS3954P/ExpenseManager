@@ -51,9 +51,7 @@ public class UserController {
     // Update an existing user by ID
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or @securityUtils.isCurrentUser(#id)")
-    public ResponseEntity<UserDTO> updateUser(
-            @PathVariable Long id,
-            @Valid @RequestBody UserRequestDTO userRequest) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequest) {
         return ResponseEntity.ok(userService.updateUser(id, userRequest));
     }
 

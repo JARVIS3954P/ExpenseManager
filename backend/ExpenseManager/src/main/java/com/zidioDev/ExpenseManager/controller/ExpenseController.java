@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/expenses")
+@RequestMapping("/api/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
     private static final Logger logger = LoggerFactory.getLogger(ExpenseController.class);
@@ -74,16 +74,65 @@ public class ExpenseController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<String> deleteExpense(@PathVariable Long id, Authentication authentication) {
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'MANAGER', 'ADMIN')")
+    public ResponseEntity<ExpenseDTO> getExpenseById(@PathVariable Long id, Authentication authentication) {
         try {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-            if (userPrincipal.getUser().getRole() == Role.EMPLOYEE) {
-                // TODO: Add logic to check if the expense belongs to the user
+            ExpenseDTO expense = expenseService.getExpenseById(id);
+            
+            // Only allow users to view their own expenses unless they are a manager or admin
+            if (!userPrincipal.getUser().getRole().equals(Role.MANAGER) && 
+                !userPrincipal.getUser().getRole().equals(Role.ADMIN) &&
+                !expense.getUserId().equals(userPrincipal.getUser().getId())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }
+            
+            return ResponseEntity.ok(expense);
+        } catch (Exception e) {
+            logger.error("Error fetching expense: {}", id, e);
+            throw e;
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'MANAGER', 'ADMIN')")
+    public ResponseEntity<ExpenseDTO> updateExpense(@PathVariable Long id, @Valid @RequestBody ExpenseDTO expenseDTO, Authentication authentication) {
+        try {
+            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            ExpenseDTO existingExpense = expenseService.getExpenseById(id);
+            
+            // Only allow users to update their own expenses unless they are a manager or admin
+            if (!userPrincipal.getUser().getRole().equals(Role.MANAGER) && 
+                !userPrincipal.getUser().getRole().equals(Role.ADMIN) &&
+                !existingExpense.getUserId().equals(userPrincipal.getUser().getId())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+            
+            ExpenseDTO updatedExpense = expenseService.updateExpense(id, expenseDTO);
+            return ResponseEntity.ok(updatedExpense);
+        } catch (Exception e) {
+            logger.error("Error updating expense: {}", id, e);
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'MANAGER', 'ADMIN')")
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long id, Authentication authentication) {
+        try {
+            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            ExpenseDTO existingExpense = expenseService.getExpenseById(id);
+            
+            // Only allow users to delete their own expenses unless they are a manager or admin
+            if (!userPrincipal.getUser().getRole().equals(Role.MANAGER) && 
+                !userPrincipal.getUser().getRole().equals(Role.ADMIN) &&
+                !existingExpense.getUserId().equals(userPrincipal.getUser().getId())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+            
             expenseService.deleteExpense(id);
-            return ResponseEntity.ok("Expense deleted successfully");
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             logger.error("Error deleting expense: {}", id, e);
             throw e;

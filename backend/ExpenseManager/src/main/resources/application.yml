@@ -4,14 +4,14 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/expense_manager
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    username: postgres
+    password: root
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -33,10 +33,20 @@ server:
   port: 8080
   servlet:
     context-path: /api
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+      file-size-threshold: 2KB
+      location: ${java.io.tmpdir}
 
 jwt:
-  secret: ${JWT_SECRET:your-256-bit-secret}
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   expiration: 86400000 # 24 hours in milliseconds
+
+app:
+  cors:
+    allowed-origins: http://localhost:3000
 
 expense:
   attachment:
@@ -51,6 +61,24 @@ logging:
     com.zidioDev.ExpenseManager: DEBUG
     org.springframework.security: INFO
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 38393188104-hjhjldmdgn25knqc7k99mdj97849k1b7.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          github:
+            client-id: Ov23liozze1fyVQXPsWE
+            client-secret: 085912321630d77ce35e8d7c3a71d287bc03b808
+            scope:
+              - user:email
+              - read:user
+
 ---
 spring:
   config:
@@ -59,6 +87,10 @@ spring:
   
   datasource:
     url: jdbc:postgresql://localhost:5432/expense_manager_dev
+
+app:
+  cors:
+    allowed-origins: "*"
 
 ---
 spring:
@@ -75,6 +107,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
 
+app:
+  cors:
+    allowed-origins: "*"
+
 ---
 spring:
   config:
@@ -86,6 +122,10 @@ spring:
 
 server:
   port: ${PORT:8080}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
 
 logging:
   level:

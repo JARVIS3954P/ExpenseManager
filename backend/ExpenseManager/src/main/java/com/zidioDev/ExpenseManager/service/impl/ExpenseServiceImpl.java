@@ -57,14 +57,41 @@ public class ExpenseServiceImpl implements ExpenseService {
         expenseRepository.deleteById(expenseId);
     }
 
+    @Override
+    public ExpenseDTO getExpenseById(Long id) {
+        Expense expense = expenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
+        return mapToDTO(expense);
+    }
+
+    @Override
+    @Transactional
+    public ExpenseDTO updateExpense(Long id, ExpenseDTO expenseDTO) {
+        Expense expense = expenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
+
+        expense.setCategory(expenseDTO.getCategory());
+        expense.setAmount(expenseDTO.getAmount());
+        expense.setTitle(expenseDTO.getTitle());
+        expense.setDescription(expenseDTO.getDescription());
+        expense.setDate(expenseDTO.getDate());
+
+        expense = expenseRepository.save(expense);
+        return mapToDTO(expense);
+    }
+
     private ExpenseDTO mapToDTO(Expense expense) {
         return ExpenseDTO.builder()
                 .id(expense.getId())
-                .userId(expense.getUser().getId())
-                .category(expense.getCategory())
+                .title(expense.getTitle())
                 .amount(expense.getAmount())
+                .date(expense.getDate())
+                .category(expense.getCategory())
+                .userId(expense.getUser().getId())
                 .description(expense.getDescription())
                 .status(expense.getStatus().name())
+                .reviewerId(expense.getReviewer() != null ? expense.getReviewer().getId() : null)
+                .rejectionReason(expense.getRejectionReason())
                 .createdAt(expense.getCreatedAt())
                 .updatedAt(expense.getUpdatedAt())
                 .build();

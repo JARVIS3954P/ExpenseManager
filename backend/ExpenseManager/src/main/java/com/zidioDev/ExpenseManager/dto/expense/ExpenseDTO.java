@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.dto;
+package com.zidioDev.ExpenseManager.dto.expense;
 
 import com.zidioDev.ExpenseManager.model.enums.ApprovalStatus;
 import com.zidioDev.ExpenseManager.model.enums.ExpenseCategory;
@@ -48,7 +48,4 @@ public class ExpenseDTO {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-}
-
-
-
+} 

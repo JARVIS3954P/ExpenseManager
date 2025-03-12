@@ -3,7 +3,7 @@ package com.zidioDev.ExpenseManager.service.impl;
 import com.zidioDev.ExpenseManager.config.JwtUtils;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.AuthResponse;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.LoginRequest;
-import com.zidioDev.ExpenseManager.dto.RegisterRequest;
+import com.zidioDev.ExpenseManager.dto.AuthDTO.RegisterRequest;
 import com.zidioDev.ExpenseManager.exception.BadRequestException;
 import com.zidioDev.ExpenseManager.model.User;
 import com.zidioDev.ExpenseManager.model.enums.Role;

@@ -1,6 +1,6 @@
 package com.zidioDev.ExpenseManager.service;
 
-import com.zidioDev.ExpenseManager.dto.ExpenseDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ExpenseDTO;
 
 import java.util.List;
 

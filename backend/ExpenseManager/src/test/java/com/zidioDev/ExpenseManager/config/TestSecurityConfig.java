@@ -53,7 +53,7 @@ public class TestSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/expenses/**").authenticated()
-                .requestMatchers("/api/approvals/**").hasRole("MANAGER")
+                .requestMatchers("/api/approval/**").hasRole("MANAGER")
                 .requestMatchers("/api/reports/**").hasRole("ADMIN")
                 .requestMatchers("/docs/**", "/v3/api-docs/**", "/swagger-ui/**", "/ws/**").permitAll()
                 .anyRequest().authenticated()

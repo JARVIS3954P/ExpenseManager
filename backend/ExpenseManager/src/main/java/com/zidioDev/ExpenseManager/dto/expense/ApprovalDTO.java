@@ -1,15 +1,14 @@
-package com.zidioDev.ExpenseManager.dto;
+package com.zidioDev.ExpenseManager.dto.expense;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ApprovalDTO {
     private Long expenseId;
 
@@ -21,6 +20,4 @@ public class ApprovalDTO {
     private String rejectionReason;
 
     private LocalDateTime approvedAt;
-}
-
-
+} 

@@ -1,7 +1,7 @@
 package com.zidioDev.ExpenseManager.service.impl;
 
 import com.zidioDev.ExpenseManager.config.ApprovalConfig;
-import com.zidioDev.ExpenseManager.dto.ExpenseDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ExpenseDTO;
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
 import com.zidioDev.ExpenseManager.model.Expense;
 import com.zidioDev.ExpenseManager.model.User;

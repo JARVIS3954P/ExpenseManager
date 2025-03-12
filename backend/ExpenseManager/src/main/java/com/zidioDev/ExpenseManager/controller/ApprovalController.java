@@ -1,6 +1,6 @@
 package com.zidioDev.ExpenseManager.controller;
 
-import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ApprovalDTO;
 import com.zidioDev.ExpenseManager.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,29 +9,38 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/approvals")
+@RequestMapping("/api/approval")
 @RequiredArgsConstructor
 public class ApprovalController {
 
     private final ApprovalService approvalService;
 
-    @PostMapping("/{expenseId}/approve")
+    @PostMapping("/approve/{expenseId}")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<ApprovalDTO> approveExpense(@PathVariable Long expenseId, Authentication authentication) {
-        String role = authentication.getAuthorities().iterator().next().getAuthority();
-        ApprovalDTO approval = approvalService.approveExpense(expenseId, role);
-        return ResponseEntity.ok(approval);
+    public ResponseEntity<ApprovalDTO> approveExpense(
+            @PathVariable Long expenseId,
+            @RequestParam String approverRole) {
+        ApprovalDTO approvalDTO = ApprovalDTO.builder()
+                .expenseId(expenseId)
+                .approverRole(approverRole)
+                .approved(true)
+                .build();
+        return ResponseEntity.ok(approvalService.approveExpense(approvalDTO));
     }
 
-    @PostMapping("/{expenseId}/reject")
+    @PostMapping("/reject/{expenseId}")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public ResponseEntity<ApprovalDTO> rejectExpense(
             @PathVariable Long expenseId,
-            @RequestParam String reason,
-            Authentication authentication) {
-        String role = authentication.getAuthorities().iterator().next().getAuthority();
-        ApprovalDTO approval = approvalService.rejectExpense(expenseId, role, reason);
-        return ResponseEntity.ok(approval);
+            @RequestParam String approverRole,
+            @RequestParam String rejectionReason) {
+        ApprovalDTO approvalDTO = ApprovalDTO.builder()
+                .expenseId(expenseId)
+                .approverRole(approverRole)
+                .approved(false)
+                .rejectionReason(rejectionReason)
+                .build();
+        return ResponseEntity.ok(approvalService.rejectExpense(approvalDTO));
     }
 }
 

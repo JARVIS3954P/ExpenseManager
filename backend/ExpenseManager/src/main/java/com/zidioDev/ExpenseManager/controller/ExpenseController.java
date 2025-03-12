@@ -1,6 +1,6 @@
 package com.zidioDev.ExpenseManager.controller;
 
-import com.zidioDev.ExpenseManager.dto.ExpenseDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ExpenseDTO;
 import com.zidioDev.ExpenseManager.model.User;
 import com.zidioDev.ExpenseManager.model.UserPrincipal;
 import com.zidioDev.ExpenseManager.model.enums.Role;

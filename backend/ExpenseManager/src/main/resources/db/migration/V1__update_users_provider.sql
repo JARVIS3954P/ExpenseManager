@@ -7,7 +7,10 @@ UPDATE users
 SET provider = 'LOCAL' 
 WHERE provider IS NULL;
 
--- Now make the column non-null and add the check constraint
+-- Add check constraint
 ALTER TABLE users 
-ALTER COLUMN provider SET NOT NULL,
-ADD CONSTRAINT provider_check CHECK (provider IN ('LOCAL', 'GOOGLE', 'GITHUB')); 
+ADD CONSTRAINT provider_check CHECK (provider IN ('LOCAL', 'GOOGLE', 'GITHUB'));
+
+-- Now make the column non-null
+ALTER TABLE users 
+ALTER COLUMN provider SET NOT NULL; 

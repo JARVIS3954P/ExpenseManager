@@ -3,7 +3,7 @@ package com.zidioDev.ExpenseManager.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zidioDev.ExpenseManager.ExpenseManagerApplication;
 import com.zidioDev.ExpenseManager.config.TestSecurityConfig;
-import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ApprovalDTO;
 import com.zidioDev.ExpenseManager.service.ApprovalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,28 +38,36 @@ class ApprovalControllerTest {
     @BeforeEach
     void setUp() {
         approvalDTO = ApprovalDTO.builder()
-                .reason("Test rejection reason")
+                .expenseId(1L)
+                .approverRole("MANAGER")
+                .approved(true)
                 .build();
     }
 
     @Test
     @WithUserDetails(value = "test@example.com", userDetailsServiceBeanName = "testUserDetailsService")
     void approveExpense_Success() throws Exception {
-        when(approvalService.approveExpense(eq(1L), any(String.class)))
+        when(approvalService.approveExpense(any(ApprovalDTO.class)))
                 .thenReturn(approvalDTO);
 
-        mockMvc.perform(post("/api/approvals/1/approve"))
+        mockMvc.perform(post("/api/approval/approve/{expenseId}", 1L)
+                .param("approverRole", "MANAGER")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     @WithUserDetails(value = "test@example.com", userDetailsServiceBeanName = "testUserDetailsService")
     void rejectExpense_Success() throws Exception {
-        when(approvalService.rejectExpense(eq(1L), any(String.class), any(String.class)))
+        approvalDTO.setApproved(false);
+        approvalDTO.setRejectionReason("Test rejection reason");
+        when(approvalService.rejectExpense(any(ApprovalDTO.class)))
                 .thenReturn(approvalDTO);
 
-        mockMvc.perform(post("/api/approvals/1/reject")
-                .param("reason", "Test rejection reason"))
+        mockMvc.perform(post("/api/approval/reject/{expenseId}", 1L)
+                .param("approverRole", "MANAGER")
+                .param("rejectionReason", "Test rejection reason")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

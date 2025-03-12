@@ -3,7 +3,7 @@ package com.zidioDev.ExpenseManager.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zidioDev.ExpenseManager.ExpenseManagerApplication;
 import com.zidioDev.ExpenseManager.config.TestSecurityConfig;
-import com.zidioDev.ExpenseManager.dto.ExpenseDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ExpenseDTO;
 import com.zidioDev.ExpenseManager.model.enums.ExpenseCategory;
 import com.zidioDev.ExpenseManager.service.ExpenseService;
 import org.junit.jupiter.api.BeforeEach;

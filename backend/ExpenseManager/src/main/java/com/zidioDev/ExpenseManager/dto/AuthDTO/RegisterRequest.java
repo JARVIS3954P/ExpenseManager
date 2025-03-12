@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.dto;
+package com.zidioDev.ExpenseManager.dto.AuthDTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

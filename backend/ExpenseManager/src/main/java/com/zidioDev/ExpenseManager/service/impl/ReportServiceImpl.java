@@ -1,6 +1,6 @@
-package com.zidioDev.ExpenseManager.service;
+package com.zidioDev.ExpenseManager.service.impl;
 
-import com.zidioDev.ExpenseManager.dto.ReportDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ReportDTO;
 import com.zidioDev.ExpenseManager.service.ReportService;
 import org.springframework.stereotype.Service;
 

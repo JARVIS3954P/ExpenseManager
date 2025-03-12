@@ -1,6 +1,6 @@
-package com.zidioDev.ExpenseManager.service;
+package com.zidioDev.ExpenseManager.service.impl;
 
-import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ApprovalDTO;
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
 import com.zidioDev.ExpenseManager.model.Expense;
 import com.zidioDev.ExpenseManager.model.User;
@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
 @Service
 @RequiredArgsConstructor
 public class ApprovalServiceImpl implements ApprovalService {
@@ -25,53 +23,58 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     @Transactional
-    public ApprovalDTO approveExpense(Long expenseId, String approverRole) {
-        Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+    public ApprovalDTO approveExpense(ApprovalDTO approvalDTO) {
+        Expense expense = expenseRepository.findById(approvalDTO.getExpenseId())
+                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
 
-        if (expense.getStatus() != ApprovalStatus.PENDING) {
-            throw new IllegalStateException("Expense is not in PENDING state");
-        }
+        // TODO: Get reviewer from security context
+        User reviewer = userRepository.findById(1L)
+                .orElseThrow(() -> new IllegalArgumentException("Reviewer not found"));
 
         expense.setStatus(ApprovalStatus.APPROVED);
-        expense.setUpdatedAt(LocalDateTime.now());
+        expense.setReviewer(reviewer);
         expenseRepository.save(expense);
 
-        // Send notification to expense creator
-        NotificationDTO notification = NotificationDTO.builder()
+        // Send notification to the expense owner
+        notificationService.sendNotification(NotificationDTO.builder()
                 .recipientId(expense.getUser().getId().toString())
-                .message("Your expense " + expense.getTitle() + " has been approved")
-                .read(false)
-                .build();
-        notificationService.sendNotification(notification);
+                .message("Your expense has been approved")
+                .build());
 
-        return new ApprovalDTO(expense.getId(), approverRole, true, null, LocalDateTime.now());
+        return ApprovalDTO.builder()
+                .expenseId(expense.getId())
+                .approverRole(approvalDTO.getApproverRole())
+                .approved(true)
+                .build();
     }
 
     @Override
     @Transactional
-    public ApprovalDTO rejectExpense(Long expenseId, String approverRole, String rejectionReason) {
-        Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+    public ApprovalDTO rejectExpense(ApprovalDTO approvalDTO) {
+        Expense expense = expenseRepository.findById(approvalDTO.getExpenseId())
+                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
 
-        if (expense.getStatus() != ApprovalStatus.PENDING) {
-            throw new IllegalStateException("Expense is not in PENDING state");
-        }
+        // TODO: Get reviewer from security context
+        User reviewer = userRepository.findById(1L)
+                .orElseThrow(() -> new IllegalArgumentException("Reviewer not found"));
 
         expense.setStatus(ApprovalStatus.REJECTED);
-        expense.setRejectionReason(rejectionReason);
-        expense.setUpdatedAt(LocalDateTime.now());
+        expense.setReviewer(reviewer);
+        expense.setRejectionReason(approvalDTO.getRejectionReason());
         expenseRepository.save(expense);
 
-        // Send notification to expense creator
-        NotificationDTO notification = NotificationDTO.builder()
+        // Send notification to the expense owner
+        notificationService.sendNotification(NotificationDTO.builder()
                 .recipientId(expense.getUser().getId().toString())
-                .message("Your expense " + expense.getTitle() + " has been rejected. Reason: " + rejectionReason)
-                .read(false)
-                .build();
-        notificationService.sendNotification(notification);
+                .message("Your expense has been rejected: " + approvalDTO.getRejectionReason())
+                .build());
 
-        return new ApprovalDTO(expense.getId(), approverRole, false, rejectionReason, LocalDateTime.now());
+        return ApprovalDTO.builder()
+                .expenseId(expense.getId())
+                .approverRole(approvalDTO.getApproverRole())
+                .approved(false)
+                .rejectionReason(approvalDTO.getRejectionReason())
+                .build();
     }
 }
 

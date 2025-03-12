@@ -57,7 +57,8 @@ public class User implements UserDetails {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
+    @Builder.Default
     private AuthProvider provider = AuthProvider.LOCAL;
 
     @Column(nullable = false)

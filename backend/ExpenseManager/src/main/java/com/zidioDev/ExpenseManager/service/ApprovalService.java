@@ -1,10 +1,10 @@
 package com.zidioDev.ExpenseManager.service;
 
-import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
+import com.zidioDev.ExpenseManager.dto.expense.ApprovalDTO;
 
 public interface ApprovalService {
-    ApprovalDTO approveExpense(Long expenseId, String approverRole);
-    ApprovalDTO rejectExpense(Long expenseId, String approverRole, String rejectionReason);
+    ApprovalDTO approveExpense(ApprovalDTO approvalDTO);
+    ApprovalDTO rejectExpense(ApprovalDTO approvalDTO);
 }
 
 

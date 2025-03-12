@@ -7,3 +7,5 @@ public class ForbiddenException extends CustomException {
         super(message, HttpStatus.FORBIDDEN);
     }
 }
+
+

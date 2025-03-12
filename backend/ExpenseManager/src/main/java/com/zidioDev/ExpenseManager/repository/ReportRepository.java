@@ -18,3 +18,5 @@ public interface ReportRepository extends JpaRepository<Expense, Long> {
     List<Object[]> getMonthlyExpenses(@Param("year") int year);
 }
 
+
+

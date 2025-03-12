@@ -25,3 +25,4 @@ public class UserRequestDTO {
     @NotNull(message = "Role cannot be null")
     private Role role; // EMPLOYEE, MANAGER, ADMIN
 }
+

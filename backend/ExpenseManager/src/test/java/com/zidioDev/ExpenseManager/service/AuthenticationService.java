@@ -1,9 +1,10 @@
 package com.zidioDev.ExpenseManager.service;
 
+import com.zidioDev.ExpenseManager.dto.AuthDTO.AuthResponse;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.LoginRequest;
-import com.zidioDev.ExpenseManager.dto.AuthDTO.RegisterRequest;
+import com.zidioDev.ExpenseManager.dto.RegisterRequest;
 
 public interface AuthenticationService {
-    String register(RegisterRequest request);
-    String authenticate(LoginRequest request);
+    AuthResponse register(RegisterRequest request);
+    AuthResponse login(LoginRequest request);
 } 

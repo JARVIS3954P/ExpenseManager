@@ -7,3 +7,5 @@ public class BadRequestException extends CustomException {
         super(message, HttpStatus.BAD_REQUEST);
     }
 }
+
+

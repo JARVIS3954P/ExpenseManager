@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.service.impl;
+package com.zidioDev.ExpenseManager.service;
 
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
 import com.zidioDev.ExpenseManager.model.Notification;
@@ -39,4 +39,6 @@ public class NotificationServiceImpl implements NotificationService {
         });
     }
 }
+
+
 

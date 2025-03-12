@@ -2,7 +2,7 @@ package com.zidioDev.ExpenseManager.controller;
 
 import com.zidioDev.ExpenseManager.dto.AuthDTO.AuthResponse;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.LoginRequest;
-import com.zidioDev.ExpenseManager.dto.AuthDTO.RegisterRequest;
+import com.zidioDev.ExpenseManager.dto.RegisterRequest;
 import com.zidioDev.ExpenseManager.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -50,3 +50,5 @@ public class AuthController {
         }
     }
 }
+
+

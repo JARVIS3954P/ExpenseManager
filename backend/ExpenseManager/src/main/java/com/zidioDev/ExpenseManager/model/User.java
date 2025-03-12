@@ -1,6 +1,7 @@
 package com.zidioDev.ExpenseManager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zidioDev.ExpenseManager.model.enums.AuthProvider;
 import com.zidioDev.ExpenseManager.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -19,11 +20,11 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "users", indexes = {
     @Index(name = "idx_user_email", columnList = "email")
 })
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -54,6 +55,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AuthProvider provider = AuthProvider.LOCAL;
 
     @Column(nullable = false)
     @Builder.Default
@@ -86,38 +91,39 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
-    @JsonIgnore
     public String getUsername() {
         return email;
     }
 
     @Override
-    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
-        return isActive && !isDeleted;
+        return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonLocked() {
-        return isActive && !isDeleted;
+        return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isCredentialsNonExpired() {
-        return isActive && !isDeleted;
+        return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isEnabled() {
-        return isActive && !isDeleted;
+        return !isDeleted;
     }
 }
+
+

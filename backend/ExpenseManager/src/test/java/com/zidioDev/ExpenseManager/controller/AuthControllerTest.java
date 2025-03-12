@@ -1,10 +1,11 @@
 package com.zidioDev.ExpenseManager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zidioDev.ExpenseManager.ExpenseManagerApplication;
 import com.zidioDev.ExpenseManager.config.TestSecurityConfig;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.LoginRequest;
-import com.zidioDev.ExpenseManager.dto.AuthDTO.RegisterRequest;
 import com.zidioDev.ExpenseManager.dto.AuthDTO.AuthResponse;
+import com.zidioDev.ExpenseManager.dto.RegisterRequest;
 import com.zidioDev.ExpenseManager.model.enums.Role;
 import com.zidioDev.ExpenseManager.service.AuthService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthController.class)
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, ExpenseManagerApplication.class})
 class AuthControllerTest {
 
     @Autowired
@@ -43,18 +44,23 @@ class AuthControllerTest {
     @BeforeEach
     void setUp() {
         uniqueEmail = "test" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
-        registerRequest = new RegisterRequest();
-        registerRequest.setName("Test User");
-        registerRequest.setEmail(uniqueEmail);
-        registerRequest.setPassword("password123"); // Use raw password for registration
-        registerRequest.setRole(Role.EMPLOYEE);
+        registerRequest = RegisterRequest.builder()
+                .fullName("Test User")
+                .email(uniqueEmail)
+                .password("password123")
+                .role(Role.EMPLOYEE.name())
+                .build();
 
         loginRequest = new LoginRequest();
         loginRequest.setEmail(uniqueEmail);
-        loginRequest.setPassword("password123"); // Use raw password for login
+        loginRequest.setPassword("password123");
 
         // Mock authentication service responses
-        AuthResponse mockResponse = new AuthResponse("mock-jwt-token", "EMPLOYEE", "Success");
+        AuthResponse mockResponse = AuthResponse.builder()
+                .token("mock-jwt-token")
+                .role(Role.EMPLOYEE.name())
+                .message("Success")
+                .build();
 
         when(authService.register(any(RegisterRequest.class))).thenReturn(mockResponse);
         when(authService.login(any(LoginRequest.class))).thenReturn(mockResponse);

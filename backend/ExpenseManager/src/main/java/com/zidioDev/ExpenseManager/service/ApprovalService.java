@@ -7,3 +7,5 @@ public interface ApprovalService {
     ApprovalDTO rejectExpense(Long expenseId, String approverRole, String rejectionReason);
 }
 
+
+

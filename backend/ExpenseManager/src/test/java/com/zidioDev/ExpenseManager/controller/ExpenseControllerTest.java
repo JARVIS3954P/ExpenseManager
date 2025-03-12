@@ -1,6 +1,7 @@
 package com.zidioDev.ExpenseManager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zidioDev.ExpenseManager.ExpenseManagerApplication;
 import com.zidioDev.ExpenseManager.config.TestSecurityConfig;
 import com.zidioDev.ExpenseManager.dto.ExpenseDTO;
 import com.zidioDev.ExpenseManager.model.enums.ExpenseCategory;
@@ -8,8 +9,7 @@ import com.zidioDev.ExpenseManager.service.ExpenseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -25,10 +25,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(TestSecurityConfig.class)
-public class ExpenseControllerTest {
+@WebMvcTest(ExpenseController.class)
+@Import({TestSecurityConfig.class, ExpenseManagerApplication.class})
+class ExpenseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -204,5 +203,9 @@ public class ExpenseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(employeeExpense)))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void contextLoads() {
     }
 } 

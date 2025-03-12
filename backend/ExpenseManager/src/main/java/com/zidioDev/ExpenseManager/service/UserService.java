@@ -13,3 +13,4 @@ public interface UserService {
     UserDTO updateUser(Long userId, UserRequestDTO userRequest);
     void deleteUser(Long userId); // Soft delete
 }
+

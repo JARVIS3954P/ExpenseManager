@@ -23,3 +23,5 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("UPDATE Expense e SET e.status = :status WHERE e.id = :expenseId")
     void updateExpenseStatus(@Param("expenseId") Long expenseId, @Param("status") String status);
 }
+
+

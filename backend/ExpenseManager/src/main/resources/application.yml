@@ -29,39 +29,6 @@ spring:
           starttls:
             enable: true
 
-server:
-  port: 8080
-  servlet:
-    context-path: /api
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-      enabled: true
-      file-size-threshold: 2KB
-      location: ${java.io.tmpdir}
-
-jwt:
-  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-  expiration: 86400000 # 24 hours in milliseconds
-
-app:
-  cors:
-    allowed-origins: http://localhost:3000
-
-expense:
-  attachment:
-    allowed-types: application/pdf,image/jpeg,image/png
-    max-size: 5MB
-  approval:
-    threshold: 1000.00 # Expenses above this amount require manager approval
-
-logging:
-  level:
-    root: INFO
-    com.zidioDev.ExpenseManager: DEBUG
-    org.springframework.security: INFO
-
-spring:
   security:
     oauth2:
       client:
@@ -78,6 +45,42 @@ spring:
             scope:
               - user:email
               - read:user
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+      file-size-threshold: 2KB
+      location: ${java.io.tmpdir}
+
+jwt:
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  expiration: ${JWT_EXPIRATION:86400000} # 24 hours in milliseconds
+
+app:
+  cors:
+    allowed-origins: http://localhost:3000
+
+expense:
+  attachment:
+    allowed-types: application/pdf,image/jpeg,image/png
+    max-size: 5MB
+  approval:
+    auto-approval-threshold: 5000.0
+    manager-approval-threshold: 10000.0
+
+logging:
+  level:
+    root: INFO
+    com.zidioDev.ExpenseManager: DEBUG
+    org.springframework.security: INFO
+
+  file:
+    name: logs/expense-manager.log
 
 ---
 spring:

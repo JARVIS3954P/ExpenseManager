@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.service.impl;
+package com.zidioDev.ExpenseManager.service;
 
 import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
@@ -74,4 +74,6 @@ public class ApprovalServiceImpl implements ApprovalService {
         return new ApprovalDTO(expense.getId(), approverRole, false, rejectionReason, LocalDateTime.now());
     }
 }
+
+
 

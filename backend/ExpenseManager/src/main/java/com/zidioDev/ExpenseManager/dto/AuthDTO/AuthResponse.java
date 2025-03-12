@@ -1,17 +1,21 @@
 package com.zidioDev.ExpenseManager.dto.AuthDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthResponse {
     private String token;
+    private Long id;
+    private String email;
     private String role;
     private String message;
 }
+
+
 

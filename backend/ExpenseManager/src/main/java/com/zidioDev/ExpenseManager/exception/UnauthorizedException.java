@@ -7,3 +7,5 @@ public class UnauthorizedException extends CustomException {
         super(message, HttpStatus.UNAUTHORIZED);
     }
 }
+
+

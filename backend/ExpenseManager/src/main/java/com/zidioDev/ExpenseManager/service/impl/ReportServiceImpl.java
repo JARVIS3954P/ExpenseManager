@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.service.impl;
+package com.zidioDev.ExpenseManager.service;
 
 import com.zidioDev.ExpenseManager.dto.ReportDTO;
 import com.zidioDev.ExpenseManager.service.ReportService;
@@ -17,4 +17,6 @@ public class ReportServiceImpl implements ReportService {
         return new ReportDTO(reportType, LocalDateTime.now(), downloadUrl);
     }
 }
+
+
 

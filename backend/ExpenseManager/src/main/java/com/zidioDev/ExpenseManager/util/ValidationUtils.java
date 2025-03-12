@@ -15,3 +15,5 @@ public class ValidationUtils {
         return Pattern.matches(PASSWORD_REGEX, password);
     }
 }
+
+

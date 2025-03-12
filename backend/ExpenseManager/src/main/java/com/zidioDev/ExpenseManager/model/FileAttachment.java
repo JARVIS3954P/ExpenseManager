@@ -1,34 +1,62 @@
 package com.zidioDev.ExpenseManager.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
-@Table(name = "file_attachments")
+import java.time.LocalDateTime;
+
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "file_attachments")
+@EntityListeners(AuditingEntityListener.class)
 public class FileAttachment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "expense_id", nullable = false)
-    private Expense expense;  // Linked to Expense
-
     @Column(nullable = false)
     private String fileName;
 
     @Column(nullable = false)
-    private String fileType;
+    private String contentType;
 
     @Column(nullable = false)
-    private String fileUrl;  // AWS S3 URL or local storage path
+    private Long fileSize;
+
+    @Column(nullable = false)
+    private String filePath;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "expense_id", nullable = false)
+    private Expense expense;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime uploadedAt;
+
+    @Version
+    private Long version;
+
+    @PreRemove
+    private void preRemove() {
+        if (expense != null) {
+            expense.getAttachments().remove(this);
+        }
+    }
+
+    public void setExpense(Expense expense) {
+        this.expense = expense;
+        if (expense != null && !expense.getAttachments().contains(this)) {
+            expense.getAttachments().add(this);
+        }
+    }
 }
+
+
 

@@ -16,3 +16,5 @@ public class ReportDTO {
     private LocalDateTime generatedAt;
     private String downloadUrl;
 }
+
+

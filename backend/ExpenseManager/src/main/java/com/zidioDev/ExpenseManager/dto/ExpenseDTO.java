@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 public class ExpenseDTO {
     private Long id;
 
-    @NotBlank(message = "Title cannot be blank")
+    @NotBlank(message = "Title is required")
     @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
 
-    @NotNull(message = "Amount cannot be null")
+    @NotNull(message = "Amount is required")
     @Positive(message = "Amount must be positive")
     private Double amount;
 
@@ -39,7 +39,7 @@ public class ExpenseDTO {
     @Size(max = 1000, message = "Description cannot exceed 1000 characters")
     private String description;
 
-    private String status;
+    private ApprovalStatus status;
 
     private Long reviewerId;
 
@@ -49,4 +49,6 @@ public class ExpenseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
+
+
 

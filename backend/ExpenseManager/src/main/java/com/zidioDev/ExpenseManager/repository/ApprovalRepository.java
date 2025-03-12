@@ -14,3 +14,5 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     Optional<Approval> findByExpenseId(Long expenseId);
 }
 
+
+

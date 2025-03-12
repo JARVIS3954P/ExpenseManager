@@ -1,14 +1,14 @@
 package com.zidioDev.ExpenseManager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zidioDev.ExpenseManager.ExpenseManagerApplication;
 import com.zidioDev.ExpenseManager.config.TestSecurityConfig;
 import com.zidioDev.ExpenseManager.dto.ApprovalDTO;
 import com.zidioDev.ExpenseManager.service.ApprovalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -21,10 +21,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(TestSecurityConfig.class)
-public class ApprovalControllerTest {
+@WebMvcTest(ApprovalController.class)
+@Import({TestSecurityConfig.class, ExpenseManagerApplication.class})
+class ApprovalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,5 +62,9 @@ public class ApprovalControllerTest {
         mockMvc.perform(post("/api/approvals/1/reject")
                 .param("reason", "Test rejection reason"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void contextLoads() {
     }
 } 

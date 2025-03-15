@@ -53,7 +53,7 @@ public class TestSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/expenses/**").authenticated()
-                .requestMatchers("/api/approval/**").hasRole("MANAGER")
+                .requestMatchers("/api/approval/**").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers("/api/reports/**").hasRole("ADMIN")
                 .requestMatchers("/docs/**", "/v3/api-docs/**", "/swagger-ui/**", "/ws/**").permitAll()
                 .anyRequest().authenticated()
@@ -104,6 +104,14 @@ public class TestSecurityConfig {
                         .email("employee@example.com")
                         .password(testPasswordEncoder().encode("password"))
                         .role(Role.EMPLOYEE)
+                        .build();
+                return new UserPrincipal(user);
+            } else if ("admin@example.com".equals(username)) {
+                User user = User.builder()
+                        .id(3L)
+                        .email("admin@example.com")
+                        .password(testPasswordEncoder().encode("password"))
+                        .role(Role.ADMIN)
                         .build();
                 return new UserPrincipal(user);
             }

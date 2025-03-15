@@ -8,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/approval")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class ApprovalController {
     private final ApprovalService approvalService;
 
     @PostMapping("/approve/{expenseId}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     public ResponseEntity<ApprovalDTO> approveExpense(
             @PathVariable Long expenseId,
             @RequestParam String approverRole) {
@@ -29,7 +31,7 @@ public class ApprovalController {
     }
 
     @PostMapping("/reject/{expenseId}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     public ResponseEntity<ApprovalDTO> rejectExpense(
             @PathVariable Long expenseId,
             @RequestParam String approverRole,
@@ -41,6 +43,12 @@ public class ApprovalController {
                 .rejectionReason(rejectionReason)
                 .build();
         return ResponseEntity.ok(approvalService.rejectExpense(approvalDTO));
+    }
+
+    @GetMapping("/pending")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+    public ResponseEntity<List<ApprovalDTO>> getPendingApprovals(@RequestParam String role) {
+        return ResponseEntity.ok(approvalService.getPendingApprovals(role));
     }
 }
 

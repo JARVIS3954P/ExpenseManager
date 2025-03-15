@@ -1,10 +1,12 @@
 package com.zidioDev.ExpenseManager.service.impl;
 
+import com.zidioDev.ExpenseManager.config.ApprovalConfig;
 import com.zidioDev.ExpenseManager.dto.expense.ApprovalDTO;
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
 import com.zidioDev.ExpenseManager.model.Expense;
 import com.zidioDev.ExpenseManager.model.User;
 import com.zidioDev.ExpenseManager.model.enums.ApprovalStatus;
+import com.zidioDev.ExpenseManager.model.enums.Role;
 import com.zidioDev.ExpenseManager.repository.ExpenseRepository;
 import com.zidioDev.ExpenseManager.repository.UserRepository;
 import com.zidioDev.ExpenseManager.service.ApprovalService;
@@ -13,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ApprovalServiceImpl implements ApprovalService {
@@ -20,6 +25,7 @@ public class ApprovalServiceImpl implements ApprovalService {
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final ApprovalConfig approvalConfig;
 
     @Override
     @Transactional
@@ -75,6 +81,31 @@ public class ApprovalServiceImpl implements ApprovalService {
                 .approved(false)
                 .rejectionReason(approvalDTO.getRejectionReason())
                 .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ApprovalDTO> getPendingApprovals(String role) {
+        List<Expense> pendingExpenses;
+        if ("ADMIN".equals(role)) {
+            pendingExpenses = expenseRepository.findByStatus(ApprovalStatus.PENDING);
+        } else if ("MANAGER".equals(role)) {
+            // Get expenses that are within manager's approval threshold
+            pendingExpenses = expenseRepository.findByStatusAndAmountLessThanEqual(
+                ApprovalStatus.PENDING,
+                java.math.BigDecimal.valueOf(approvalConfig.getManagerApprovalThreshold())
+            );
+        } else {
+            throw new IllegalArgumentException("Invalid role for approval: " + role);
+        }
+
+        return pendingExpenses.stream()
+            .map(expense -> ApprovalDTO.builder()
+                .expenseId(expense.getId())
+                .approverRole(role)
+                .approved(false)
+                .build())
+            .collect(Collectors.toList());
     }
 }
 

@@ -1963,3 +1963,695 @@ Caused by: org.postgresql.util.PSQLException: ERROR: column "provider" of relati
 2025-03-13 02:20:11,823 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-03-13 02:20:11,824 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown initiated...
 2025-03-13 02:20:11,827 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown completed.
+2025-03-15 01:02:43,059 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:02:43,112 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 26224 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:02:43,114 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:02:43,115 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:02:43,898 WARN o.s.c.s.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'jpaAuditingHandler' defined in null: Cannot register bean definition [Root bean: class [org.springframework.data.auditing.AuditingHandler]; scope=; abstract=false; lazyInit=null; autowireMode=2; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=from; initMethodNames=null; destroyMethodNames=null] for bean 'jpaAuditingHandler' since there is already [Root bean: class [org.springframework.data.auditing.AuditingHandler]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=from; initMethodNames=null; destroyMethodNames=null] bound.
+2025-03-15 01:02:43,905 INFO o.s.b.a.l.ConditionEvaluationReportLogger [main] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-15 01:02:43,932 ERROR o.s.b.d.LoggingFailureAnalysisReporter [main] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'jpaAuditingHandler' could not be registered. A bean with that name has already been defined and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2025-03-15 01:03:14,232 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:03:14,271 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 3356 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:03:14,272 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:03:14,273 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:03:15,302 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:03:15,399 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 84 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:03:16,150 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 01:03:16,163 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:03:16,169 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 01:03:16,169 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 01:03:16,252 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 01:03:16,254 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1928 ms
+2025-03-15 01:03:16,429 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:03:16,512 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:03:16,558 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:03:16,894 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:03:16,932 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:03:17,156 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@432a6a69
+2025-03-15 01:03:17,158 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:03:17,208 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-15 01:03:18,586 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:03:18,769 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:03:19,113 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:03:19,609 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:03:19,611 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:03:20,186 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-15 01:03:20,586 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@24f1d4f3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fa1c05f, org.springframework.security.web.context.SecurityContextHolderFilter@1eb21f22, org.springframework.security.web.header.HeaderWriterFilter@4bdc0fb0, org.springframework.web.filter.CorsFilter@6465f4a, org.springframework.security.web.authentication.logout.LogoutFilter@6e92aadd, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@73859ca8, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@49925329, com.zidioDev.ExpenseManager.config.RateLimitFilter@79c4c973, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@22edca96, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3a2cc282, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@428b5b3f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@22265a8d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@492939b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@687749d1, org.springframework.security.web.session.SessionManagementFilter@53466b67, org.springframework.security.web.access.ExceptionTranslationFilter@399dc033, org.springframework.security.web.access.intercept.AuthorizationFilter@25379b3c]
+2025-03-15 01:03:21,153 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:03:21,191 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 01:03:21,193 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:03:21,195 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3e13f2c8]]
+2025-03-15 01:03:21,196 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:03:21,205 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 7.503 seconds (process running for 7.873)
+2025-03-15 01:04:30,109 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:04:30,144 INFO o.s.b.StartupInfoLogger [main] Starting SecurityConfigTest using Java 21.0.5 with PID 24868 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:04:30,145 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:04:30,147 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:04:31,574 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:04:31,719 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 129 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:04:32,717 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:04:32,807 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:04:32,844 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:04:32,952 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:04:32,985 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:04:33,194 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4cd1716d
+2025-03-15 01:04:33,197 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:04:33,236 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-15 01:04:34,781 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:04:34,943 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:04:35,387 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:04:37,006 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-15 01:04:37,572 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ef64e45, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39e08d73, org.springframework.security.web.context.SecurityContextHolderFilter@219505d9, org.springframework.security.web.header.HeaderWriterFilter@43874120, org.springframework.web.filter.CorsFilter@2236756e, org.springframework.security.web.authentication.logout.LogoutFilter@23cf86c0, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@52294ab7, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6a79a909, com.zidioDev.ExpenseManager.config.RateLimitFilter@48acb864, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@69503026, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@58f28c5e, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7491ccdf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@113d9226, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@63cde372, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5839306e, org.springframework.security.web.session.SessionManagementFilter@7bdfd631, org.springframework.security.web.access.ExceptionTranslationFilter@780296e2, org.springframework.security.web.access.intercept.AuthorizationFilter@e2931b1]
+2025-03-15 01:04:38,344 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:04:38,345 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@16bee5fe]]
+2025-03-15 01:04:38,346 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:04:38,355 INFO o.s.b.StartupInfoLogger [main] Started SecurityConfigTest in 8.775 seconds (process running for 12.248)
+2025-03-15 01:04:38,407 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ApprovalControllerTest]: ApprovalControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:04:38,446 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ApprovalControllerTest
+2025-03-15 01:04:38,496 INFO o.s.b.StartupInfoLogger [main] Starting ApprovalControllerTest using Java 21.0.5 with PID 24868 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:04:38,496 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:04:38,497 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:04:39,348 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1b6a9bb9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4887a689, org.springframework.security.web.context.SecurityContextHolderFilter@52d48643, org.springframework.security.web.header.HeaderWriterFilter@52ce11b5, org.springframework.web.filter.CorsFilter@5ea91363, org.springframework.security.web.authentication.logout.LogoutFilter@10f868dd, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@538a465d, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@37248b2c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@269bf0ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47a0e73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@70f4dd28, org.springframework.security.web.session.SessionManagementFilter@7522ea53, org.springframework.security.web.access.ExceptionTranslationFilter@5284d7f2, org.springframework.security.web.access.intercept.AuthorizationFilter@3d426638]
+2025-03-15 01:04:39,621 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:04:39,622 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:04:39,623 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:04:39,625 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:04:39,628 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:04:39,630 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:04:39,633 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 2 ms
+2025-03-15 01:04:39,663 INFO o.s.b.StartupInfoLogger [main] Started ApprovalControllerTest in 1.211 seconds (process running for 13.556)
+2025-03-15 01:04:40,355 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:04:40,370 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.AuthControllerTest
+2025-03-15 01:04:40,417 INFO o.s.b.StartupInfoLogger [main] Starting AuthControllerTest using Java 21.0.5 with PID 24868 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:04:40,418 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:04:40,419 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:04:41,035 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@f46fff6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a366d0, org.springframework.security.web.context.SecurityContextHolderFilter@53ce7e1c, org.springframework.security.web.header.HeaderWriterFilter@4b787980, org.springframework.web.filter.CorsFilter@4b238e69, org.springframework.security.web.authentication.logout.LogoutFilter@3a369bbd, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@7e349cc3, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@721950cf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7dcefda1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75723fe1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@28056451, org.springframework.security.web.session.SessionManagementFilter@64117499, org.springframework.security.web.access.ExceptionTranslationFilter@23d1aff3, org.springframework.security.web.access.intercept.AuthorizationFilter@5476f67a]
+2025-03-15 01:04:41,132 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:04:41,133 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:04:41,134 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:04:41,135 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:04:41,136 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:04:41,137 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:04:41,140 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:04:41,151 INFO o.s.b.StartupInfoLogger [main] Started AuthControllerTest in 0.774 seconds (process running for 15.044)
+2025-03-15 01:04:41,371 INFO c.z.E.c.AuthController [main] Attempting to register user with email: test63500ba1@example.com
+2025-03-15 01:04:41,373 INFO c.z.E.c.AuthController [main] Successfully registered user with email: test63500ba1@example.com
+2025-03-15 01:04:41,394 INFO c.z.E.c.AuthController [main] Attempting login for user: test40d901a0@example.com
+2025-03-15 01:04:41,396 INFO c.z.E.c.AuthController [main] Successfully logged in user: test40d901a0@example.com
+2025-03-15 01:04:41,409 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ExpenseControllerTest]: ExpenseControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:04:41,426 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ExpenseControllerTest
+2025-03-15 01:04:41,471 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseControllerTest using Java 21.0.5 with PID 24868 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:04:41,472 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:04:41,472 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:04:42,103 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@47afb11c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3191ba8b, org.springframework.security.web.context.SecurityContextHolderFilter@7c8962aa, org.springframework.security.web.header.HeaderWriterFilter@53c29dad, org.springframework.web.filter.CorsFilter@48505cf2, org.springframework.security.web.authentication.logout.LogoutFilter@5ad583a9, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@5fe29ea1, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@1dc0f59d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@278c5404, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60648aad, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b8bc51b, org.springframework.security.web.session.SessionManagementFilter@731fd11e, org.springframework.security.web.access.ExceptionTranslationFilter@7e64a758, org.springframework.security.web.access.intercept.AuthorizationFilter@5b49003b]
+2025-03-15 01:04:42,201 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:04:42,201 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:04:42,201 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:04:42,201 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:04:42,206 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:04:42,208 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:04:42,210 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:04:42,223 INFO o.s.b.StartupInfoLogger [main] Started ExpenseControllerTest in 0.791 seconds (process running for 16.115)
+2025-03-15 01:04:42,981 DEBUG c.z.E.c.ExpenseController [main] Creating expense for user: employee@example.com
+2025-03-15 01:04:43,048 DEBUG c.z.E.c.ExpenseController [main] Fetching expenses for user: employee@example.com
+2025-03-15 01:04:43,290 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplicationTests using Java 21.0.5 with PID 24868 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:04:43,290 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:04:43,290 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:04:43,686 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:04:43,718 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:04:43,910 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:04:43,915 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:04:43,922 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:04:43,926 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Starting...
+2025-03-15 01:04:43,980 INFO c.z.h.p.HikariPool [main] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1acfd193
+2025-03-15 01:04:43,981 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Start completed.
+2025-03-15 01:04:43,990 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-15 01:04:44,274 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:04:44,409 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:04:44,805 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-15 01:04:44,950 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e40d2b7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2a694c7c, org.springframework.security.web.context.SecurityContextHolderFilter@6be66042, org.springframework.security.web.header.HeaderWriterFilter@6ca3957a, org.springframework.web.filter.CorsFilter@73a5b00e, org.springframework.security.web.authentication.logout.LogoutFilter@1eb58871, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@62b76443, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@50738e64, com.zidioDev.ExpenseManager.config.RateLimitFilter@2dd85faa, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@2a906344, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3452d160, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3fe900b0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6f13b75b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1febf786, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@27a4a890, org.springframework.security.web.session.SessionManagementFilter@752bc73c, org.springframework.security.web.access.ExceptionTranslationFilter@5e2b5b4e, org.springframework.security.web.access.intercept.AuthorizationFilter@7c590893]
+2025-03-15 01:04:45,136 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:04:45,137 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@55986028]]
+2025-03-15 01:04:45,138 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:04:45,141 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplicationTests in 1.878 seconds (process running for 19.034)
+2025-03-15 01:04:45,165 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:04:45,165 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@16bee5fe]]
+2025-03-15 01:04:45,165 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:04:45,170 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:04:45,173 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:04:45,176 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 01:04:45,185 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:04:45,185 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@55986028]]
+2025-03-15 01:04:45,185 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:04:45,187 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:04:45,188 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown initiated...
+2025-03-15 01:04:45,190 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown completed.
+2025-03-15 01:09:42,843 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:09:42,877 INFO o.s.b.StartupInfoLogger [main] Starting SecurityConfigTest using Java 21.0.5 with PID 21924 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:09:42,877 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:09:42,878 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:09:44,293 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:09:44,402 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 99 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:09:45,482 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:09:45,556 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:09:45,589 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:09:45,701 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:09:45,730 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:09:45,967 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7fdabb3b
+2025-03-15 01:09:45,969 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:09:47,443 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:09:47,598 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:09:48,045 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:09:50,246 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@503f5382, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5710fca8, org.springframework.security.web.context.SecurityContextHolderFilter@3a6ba61b, org.springframework.security.web.header.HeaderWriterFilter@19f4bfce, org.springframework.web.filter.CorsFilter@7e2e1179, org.springframework.security.web.authentication.logout.LogoutFilter@705a793a, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1ad2e962, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2fc51db0, com.zidioDev.ExpenseManager.config.RateLimitFilter@28e9f6b8, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@412b4aed, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4c59c76c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@19e7aa5b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@11cf1be7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e0a7b9e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@336e59a6, org.springframework.security.web.session.SessionManagementFilter@364f0a6f, org.springframework.security.web.access.ExceptionTranslationFilter@321b0237, org.springframework.security.web.access.intercept.AuthorizationFilter@187c011d]
+2025-03-15 01:09:50,895 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:09:50,897 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1d9ad64f]]
+2025-03-15 01:09:50,898 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:09:50,904 INFO o.s.b.StartupInfoLogger [main] Started SecurityConfigTest in 8.658 seconds (process running for 12.201)
+2025-03-15 01:09:50,955 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ApprovalControllerTest]: ApprovalControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:09:50,990 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ApprovalControllerTest
+2025-03-15 01:09:51,038 INFO o.s.b.StartupInfoLogger [main] Starting ApprovalControllerTest using Java 21.0.5 with PID 21924 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:09:51,039 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:09:51,040 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:09:51,946 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b439e50, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48b4fecb, org.springframework.security.web.context.SecurityContextHolderFilter@47e869c4, org.springframework.security.web.header.HeaderWriterFilter@4df03572, org.springframework.web.filter.CorsFilter@3cc1990, org.springframework.security.web.authentication.logout.LogoutFilter@281d7536, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@4b8d9b97, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@6bfe4dd1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5a2c6a67, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16bb8ff5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75084fe4, org.springframework.security.web.session.SessionManagementFilter@63db2cb2, org.springframework.security.web.access.ExceptionTranslationFilter@54c9320c, org.springframework.security.web.access.intercept.AuthorizationFilter@5bd5ace9]
+2025-03-15 01:09:52,231 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:09:52,231 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:09:52,237 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:09:52,239 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:09:52,242 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:09:52,242 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:09:52,246 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:09:52,272 INFO o.s.b.StartupInfoLogger [main] Started ApprovalControllerTest in 1.275 seconds (process running for 13.567)
+2025-03-15 01:09:52,952 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:09:52,967 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.AuthControllerTest
+2025-03-15 01:09:53,026 INFO o.s.b.StartupInfoLogger [main] Starting AuthControllerTest using Java 21.0.5 with PID 21924 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:09:53,026 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:09:53,028 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:09:53,656 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4e457978, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@68812a5c, org.springframework.security.web.context.SecurityContextHolderFilter@2b488a42, org.springframework.security.web.header.HeaderWriterFilter@4e8b0758, org.springframework.web.filter.CorsFilter@6beac50c, org.springframework.security.web.authentication.logout.LogoutFilter@62408c4, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@5d0c6120, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@108487e8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@42f623e1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54514d20, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5d4a950, org.springframework.security.web.session.SessionManagementFilter@a06e763, org.springframework.security.web.access.ExceptionTranslationFilter@1ace7331, org.springframework.security.web.access.intercept.AuthorizationFilter@2bd8b110]
+2025-03-15 01:09:53,734 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:09:53,734 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:09:53,735 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:09:53,737 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:09:53,738 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:09:53,738 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:09:53,740 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:09:53,745 INFO o.s.b.StartupInfoLogger [main] Started AuthControllerTest in 0.77 seconds (process running for 15.042)
+2025-03-15 01:09:53,980 INFO c.z.E.c.AuthController [main] Attempting to register user with email: test8bf6317e@example.com
+2025-03-15 01:09:53,982 INFO c.z.E.c.AuthController [main] Successfully registered user with email: test8bf6317e@example.com
+2025-03-15 01:09:54,001 INFO c.z.E.c.AuthController [main] Attempting login for user: testbd8f281b@example.com
+2025-03-15 01:09:54,003 INFO c.z.E.c.AuthController [main] Successfully logged in user: testbd8f281b@example.com
+2025-03-15 01:09:54,010 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ExpenseControllerTest]: ExpenseControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:09:54,026 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ExpenseControllerTest
+2025-03-15 01:09:54,065 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseControllerTest using Java 21.0.5 with PID 21924 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:09:54,066 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:09:54,068 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:09:54,527 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@37aca44a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3de08050, org.springframework.security.web.context.SecurityContextHolderFilter@611ce139, org.springframework.security.web.header.HeaderWriterFilter@290df888, org.springframework.web.filter.CorsFilter@617f817a, org.springframework.security.web.authentication.logout.LogoutFilter@1f22ac9b, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@179273ff, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@6196a827, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ca024d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4aaf547c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68ddb10c, org.springframework.security.web.session.SessionManagementFilter@7a953b17, org.springframework.security.web.access.ExceptionTranslationFilter@5397c8da, org.springframework.security.web.access.intercept.AuthorizationFilter@221577de]
+2025-03-15 01:09:54,578 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:09:54,578 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:09:54,578 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:09:54,578 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:09:54,578 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:09:54,578 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:09:54,578 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 0 ms
+2025-03-15 01:09:54,593 INFO o.s.b.StartupInfoLogger [main] Started ExpenseControllerTest in 0.563 seconds (process running for 15.886)
+2025-03-15 01:09:55,318 DEBUG c.z.E.c.ExpenseController [main] Creating expense for user: employee@example.com
+2025-03-15 01:09:55,384 DEBUG c.z.E.c.ExpenseController [main] Fetching expenses for user: employee@example.com
+2025-03-15 01:09:55,631 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplicationTests using Java 21.0.5 with PID 21924 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:09:55,631 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:09:55,631 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:09:55,995 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:09:56,026 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 29 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:09:56,230 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:09:56,241 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:09:56,245 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:09:56,252 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Starting...
+2025-03-15 01:09:56,316 INFO c.z.h.p.HikariPool [main] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@48ee84b0
+2025-03-15 01:09:56,317 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Start completed.
+2025-03-15 01:09:56,598 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:09:56,735 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:09:57,357 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@474e0ab4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@19b5f793, org.springframework.security.web.context.SecurityContextHolderFilter@1eb58871, org.springframework.security.web.header.HeaderWriterFilter@3452d160, org.springframework.web.filter.CorsFilter@6eae9895, org.springframework.security.web.authentication.logout.LogoutFilter@1e40d2b7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@3fe900b0, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@27a4a890, com.zidioDev.ExpenseManager.config.RateLimitFilter@2a750d3a, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@9b64076, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@62b76443, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@6c4c4df8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e220be6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7c590893, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5be0e16f, org.springframework.security.web.session.SessionManagementFilter@6cee43d8, org.springframework.security.web.access.ExceptionTranslationFilter@1febf786, org.springframework.security.web.access.intercept.AuthorizationFilter@73a5b00e]
+2025-03-15 01:09:57,592 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:09:57,592 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@a29670a]]
+2025-03-15 01:09:57,592 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:09:57,599 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplicationTests in 1.993 seconds (process running for 18.894)
+2025-03-15 01:09:57,634 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:09:57,634 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1d9ad64f]]
+2025-03-15 01:09:57,634 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:09:57,641 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:09:57,643 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:09:57,647 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 01:09:57,655 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:09:57,655 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@a29670a]]
+2025-03-15 01:09:57,655 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:09:57,655 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:09:57,655 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown initiated...
+2025-03-15 01:09:57,655 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown completed.
+2025-03-15 01:14:40,291 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:14:40,325 INFO o.s.b.StartupInfoLogger [main] Starting SecurityConfigTest using Java 21.0.5 with PID 26796 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:14:40,326 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:14:40,327 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:14:41,881 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:14:41,998 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 105 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:14:43,165 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:14:43,234 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:14:43,277 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:14:43,381 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:14:43,411 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:14:43,611 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@17d0d3d7
+2025-03-15 01:14:43,614 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:14:45,082 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:14:45,248 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:14:45,727 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:14:47,974 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@126688a7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10e4bfa5, org.springframework.security.web.context.SecurityContextHolderFilter@82da5c9, org.springframework.security.web.header.HeaderWriterFilter@4c59c76c, org.springframework.web.filter.CorsFilter@5bae7317, org.springframework.security.web.authentication.logout.LogoutFilter@2a25dd06, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@49f1ac93, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@5d6bed7b, com.zidioDev.ExpenseManager.config.RateLimitFilter@3387d45e, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@f6b85c3, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@649ddfe6, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5bf52832, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@634fa039, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a07479d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7df0a05b, org.springframework.security.web.session.SessionManagementFilter@6cbd57fa, org.springframework.security.web.access.ExceptionTranslationFilter@4ab6a17d, org.springframework.security.web.access.intercept.AuthorizationFilter@5839306e]
+2025-03-15 01:14:48,570 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:14:48,572 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4463d9b7]]
+2025-03-15 01:14:48,574 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:14:48,584 INFO o.s.b.StartupInfoLogger [main] Started SecurityConfigTest in 8.824 seconds (process running for 12.112)
+2025-03-15 01:14:48,639 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ApprovalControllerTest]: ApprovalControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:14:48,682 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ApprovalControllerTest
+2025-03-15 01:14:48,729 INFO o.s.b.StartupInfoLogger [main] Starting ApprovalControllerTest using Java 21.0.5 with PID 26796 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:14:48,730 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:14:48,731 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:14:49,599 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@f157271, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@536af138, org.springframework.security.web.context.SecurityContextHolderFilter@5fa7cb3, org.springframework.security.web.header.HeaderWriterFilter@614220b8, org.springframework.web.filter.CorsFilter@4ead07c1, org.springframework.security.web.authentication.logout.LogoutFilter@72b611a, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@47e869c4, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@54c9320c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ac3a89d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a74149d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8c84fb8, org.springframework.security.web.session.SessionManagementFilter@30f0c5e, org.springframework.security.web.access.ExceptionTranslationFilter@46b32aa3, org.springframework.security.web.access.intercept.AuthorizationFilter@4a31924e]
+2025-03-15 01:14:49,861 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:14:49,862 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:14:49,863 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:14:49,864 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:14:49,868 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:14:49,869 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:14:49,871 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:14:49,896 INFO o.s.b.StartupInfoLogger [main] Started ApprovalControllerTest in 1.208 seconds (process running for 13.424)
+2025-03-15 01:14:51,083 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:14:51,104 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.AuthControllerTest
+2025-03-15 01:14:51,161 INFO o.s.b.StartupInfoLogger [main] Starting AuthControllerTest using Java 21.0.5 with PID 26796 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:14:51,162 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:14:51,164 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:14:51,818 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@12bc9995, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@20a0eb1d, org.springframework.security.web.context.SecurityContextHolderFilter@2c8e3d8a, org.springframework.security.web.header.HeaderWriterFilter@17088b23, org.springframework.web.filter.CorsFilter@604201a0, org.springframework.security.web.authentication.logout.LogoutFilter@409e4611, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@45f3540, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@19dba986, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@14a7f2fd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47a532d9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@205fc00e, org.springframework.security.web.session.SessionManagementFilter@3bec3641, org.springframework.security.web.access.ExceptionTranslationFilter@598c23ad, org.springframework.security.web.access.intercept.AuthorizationFilter@5d8a0b6]
+2025-03-15 01:14:51,883 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:14:51,884 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:14:51,885 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:14:51,885 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:14:51,886 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:14:51,886 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:14:51,886 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 0 ms
+2025-03-15 01:14:51,898 INFO o.s.b.StartupInfoLogger [main] Started AuthControllerTest in 0.787 seconds (process running for 15.425)
+2025-03-15 01:14:52,116 INFO c.z.E.c.AuthController [main] Attempting to register user with email: test4a2bf575@example.com
+2025-03-15 01:14:52,116 INFO c.z.E.c.AuthController [main] Successfully registered user with email: test4a2bf575@example.com
+2025-03-15 01:14:52,145 INFO c.z.E.c.AuthController [main] Attempting login for user: testde50d2ca@example.com
+2025-03-15 01:14:52,146 INFO c.z.E.c.AuthController [main] Successfully logged in user: testde50d2ca@example.com
+2025-03-15 01:14:52,159 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ExpenseControllerTest]: ExpenseControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:14:52,175 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ExpenseControllerTest
+2025-03-15 01:14:52,220 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseControllerTest using Java 21.0.5 with PID 26796 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:14:52,220 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:14:52,221 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:14:52,706 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@34a836fb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6bae9ca5, org.springframework.security.web.context.SecurityContextHolderFilter@293e3161, org.springframework.security.web.header.HeaderWriterFilter@292a73f2, org.springframework.web.filter.CorsFilter@44ca15d7, org.springframework.security.web.authentication.logout.LogoutFilter@5f70053e, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@52463130, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@5facf061, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d7ca8b0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67b3fd0e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d78c346, org.springframework.security.web.session.SessionManagementFilter@27b8eecb, org.springframework.security.web.access.ExceptionTranslationFilter@4260a1c, org.springframework.security.web.access.intercept.AuthorizationFilter@5f12dd3d]
+2025-03-15 01:14:52,758 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:14:52,759 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:14:52,759 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:14:52,761 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:14:52,762 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:14:52,763 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:14:52,765 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:14:52,784 INFO o.s.b.StartupInfoLogger [main] Started ExpenseControllerTest in 0.608 seconds (process running for 16.311)
+2025-03-15 01:14:53,456 DEBUG c.z.E.c.ExpenseController [main] Creating expense for user: employee@example.com
+2025-03-15 01:14:53,525 DEBUG c.z.E.c.ExpenseController [main] Fetching expenses for user: employee@example.com
+2025-03-15 01:14:53,763 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplicationTests using Java 21.0.5 with PID 26796 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:14:53,763 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:14:53,763 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:14:54,169 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:14:54,214 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 43 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:14:54,419 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:14:54,424 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:14:54,430 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:14:54,433 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Starting...
+2025-03-15 01:14:54,489 INFO c.z.h.p.HikariPool [main] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@547c94ae
+2025-03-15 01:14:54,491 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Start completed.
+2025-03-15 01:14:54,763 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:14:54,914 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:14:55,367 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@255a1fdb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a5bc003, org.springframework.security.web.context.SecurityContextHolderFilter@4bddc770, org.springframework.security.web.header.HeaderWriterFilter@5a2dbab3, org.springframework.web.filter.CorsFilter@49b257f9, org.springframework.security.web.authentication.logout.LogoutFilter@9247cfe, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@79895a73, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@53600a30, com.zidioDev.ExpenseManager.config.RateLimitFilter@4f16f68d, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@c624fdc, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2d475ee6, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1a50f575, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d03e31, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@371ff4ba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6f019523, org.springframework.security.web.session.SessionManagementFilter@1df0f641, org.springframework.security.web.access.ExceptionTranslationFilter@7976560c, org.springframework.security.web.access.intercept.AuthorizationFilter@56f135f6]
+2025-03-15 01:14:55,632 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:14:55,633 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@487edcba]]
+2025-03-15 01:14:55,634 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:14:55,639 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplicationTests in 1.901 seconds (process running for 19.167)
+2025-03-15 01:14:55,668 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:14:55,669 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4463d9b7]]
+2025-03-15 01:14:55,669 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:14:55,674 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:14:55,678 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:14:55,684 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 01:14:55,691 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:14:55,692 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@487edcba]]
+2025-03-15 01:14:55,693 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:14:55,694 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:14:55,695 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown initiated...
+2025-03-15 01:14:55,698 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown completed.
+2025-03-15 01:16:02,169 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:16:02,210 INFO o.s.b.StartupInfoLogger [main] Starting SecurityConfigTest using Java 21.0.5 with PID 2836 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:16:02,211 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:16:02,213 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:16:03,624 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:16:03,735 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 99 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:16:04,759 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:16:04,864 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:16:04,900 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:16:05,010 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:16:05,038 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:16:05,234 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4cd1716d
+2025-03-15 01:16:05,236 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:16:06,718 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:16:06,885 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:16:07,371 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:16:09,637 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2159c25e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5fb2088b, org.springframework.security.web.context.SecurityContextHolderFilter@6f88319b, org.springframework.security.web.header.HeaderWriterFilter@7b48b933, org.springframework.web.filter.CorsFilter@40e86f55, org.springframework.security.web.authentication.logout.LogoutFilter@6afafa48, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@43f50bfe, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@198cf325, com.zidioDev.ExpenseManager.config.RateLimitFilter@4b1a7b39, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@2bbc6496, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3605d078, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1f8d3539, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@232e1f66, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@431298ef, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@70295fa4, org.springframework.security.web.session.SessionManagementFilter@3ffa007c, org.springframework.security.web.access.ExceptionTranslationFilter@649ddfe6, org.springframework.security.web.access.intercept.AuthorizationFilter@22d178d3]
+2025-03-15 01:16:10,235 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:16:10,237 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3342ec79]]
+2025-03-15 01:16:10,238 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:16:10,249 INFO o.s.b.StartupInfoLogger [main] Started SecurityConfigTest in 8.625 seconds (process running for 11.898)
+2025-03-15 01:16:10,297 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ApprovalControllerTest]: ApprovalControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:16:10,332 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ApprovalControllerTest
+2025-03-15 01:16:10,384 INFO o.s.b.StartupInfoLogger [main] Starting ApprovalControllerTest using Java 21.0.5 with PID 2836 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:16:10,385 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:16:10,386 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:16:11,260 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7c80c68f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@771f4556, org.springframework.security.web.context.SecurityContextHolderFilter@5022aaa3, org.springframework.security.web.header.HeaderWriterFilter@18ca3125, org.springframework.web.filter.CorsFilter@23b34af8, org.springframework.security.web.authentication.logout.LogoutFilter@3f169051, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@42d7be51, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@625b9f43, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a4764bb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@33cd31cf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@653e6996, org.springframework.security.web.session.SessionManagementFilter@108b257f, org.springframework.security.web.access.ExceptionTranslationFilter@13d72307, org.springframework.security.web.access.intercept.AuthorizationFilter@24ac4cf4]
+2025-03-15 01:16:11,538 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:16:11,539 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:16:11,540 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:16:11,541 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:16:11,544 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:16:11,545 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:16:11,550 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:16:11,579 INFO o.s.b.StartupInfoLogger [main] Started ApprovalControllerTest in 1.241 seconds (process running for 13.227)
+2025-03-15 01:16:12,892 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:16:12,910 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.AuthControllerTest
+2025-03-15 01:16:12,969 INFO o.s.b.StartupInfoLogger [main] Starting AuthControllerTest using Java 21.0.5 with PID 2836 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:16:12,970 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:16:12,971 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:16:13,691 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@40f06edc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@44b4b54, org.springframework.security.web.context.SecurityContextHolderFilter@7d350acc, org.springframework.security.web.header.HeaderWriterFilter@6614987b, org.springframework.web.filter.CorsFilter@6280829f, org.springframework.security.web.authentication.logout.LogoutFilter@fe972c4, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@3f73fe81, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@1ffc6aa8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2421fd62, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66b46edd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7b3556d7, org.springframework.security.web.session.SessionManagementFilter@7bb8ede7, org.springframework.security.web.access.ExceptionTranslationFilter@7ba44d2d, org.springframework.security.web.access.intercept.AuthorizationFilter@610f146c]
+2025-03-15 01:16:13,775 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:16:13,776 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:16:13,776 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:16:13,777 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:16:13,778 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:16:13,779 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:16:13,782 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:16:13,793 INFO o.s.b.StartupInfoLogger [main] Started AuthControllerTest in 0.876 seconds (process running for 15.441)
+2025-03-15 01:16:14,006 INFO c.z.E.c.AuthController [main] Attempting to register user with email: testda5cfa37@example.com
+2025-03-15 01:16:14,007 INFO c.z.E.c.AuthController [main] Successfully registered user with email: testda5cfa37@example.com
+2025-03-15 01:16:14,031 INFO c.z.E.c.AuthController [main] Attempting login for user: test9bc27a7b@example.com
+2025-03-15 01:16:14,032 INFO c.z.E.c.AuthController [main] Successfully logged in user: test9bc27a7b@example.com
+2025-03-15 01:16:14,044 INFO o.s.t.c.s.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [com.zidioDev.ExpenseManager.controller.ExpenseControllerTest]: ExpenseControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-15 01:16:14,056 INFO o.s.b.t.c.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration com.zidioDev.ExpenseManager.ExpenseManagerApplication for test class com.zidioDev.ExpenseManager.controller.ExpenseControllerTest
+2025-03-15 01:16:14,110 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseControllerTest using Java 21.0.5 with PID 2836 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:16:14,110 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:16:14,111 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:16:14,642 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@19d506c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c99e5dd, org.springframework.security.web.context.SecurityContextHolderFilter@2e1e02b8, org.springframework.security.web.header.HeaderWriterFilter@67d15f2, org.springframework.web.filter.CorsFilter@47b67eac, org.springframework.security.web.authentication.logout.LogoutFilter@9facde, com.zidioDev.ExpenseManager.config.TestSecurityConfig$1@71190244, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@2dac0733, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d17531c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53ab03c9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a841a6, org.springframework.security.web.session.SessionManagementFilter@1fb25bca, org.springframework.security.web.access.ExceptionTranslationFilter@6b2f16b9, org.springframework.security.web.access.intercept.AuthorizationFilter@c297e12]
+2025-03-15 01:16:14,707 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:16:14,708 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:16:14,709 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testJwtAuthenticationFilter' configured for use
+2025-03-15 01:16:14,710 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'testRateLimitFilter' configured for use
+2025-03-15 01:16:14,711 INFO o.s.m.w.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2025-03-15 01:16:14,712 INFO o.s.w.s.FrameworkServlet [main] Initializing Servlet ''
+2025-03-15 01:16:14,714 INFO o.s.w.s.FrameworkServlet [main] Completed initialization in 1 ms
+2025-03-15 01:16:14,724 INFO o.s.b.StartupInfoLogger [main] Started ExpenseControllerTest in 0.663 seconds (process running for 16.373)
+2025-03-15 01:16:15,389 DEBUG c.z.E.c.ExpenseController [main] Creating expense for user: employee@example.com
+2025-03-15 01:16:15,455 DEBUG c.z.E.c.ExpenseController [main] Fetching expenses for user: employee@example.com
+2025-03-15 01:16:15,699 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplicationTests using Java 21.0.5 with PID 2836 (started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:16:15,700 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:16:15,700 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:16:16,048 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:16:16,087 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 36 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:16:16,265 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:16:16,270 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:16:16,279 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:16:16,282 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Starting...
+2025-03-15 01:16:16,351 INFO c.z.h.p.HikariPool [main] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@3a4f4a81
+2025-03-15 01:16:16,352 INFO c.z.h.HikariDataSource [main] HikariPool-2 - Start completed.
+2025-03-15 01:16:16,706 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:16:16,871 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:16:17,333 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@44810123, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@430c9347, org.springframework.security.web.context.SecurityContextHolderFilter@647564c2, org.springframework.security.web.header.HeaderWriterFilter@3b94d98d, org.springframework.web.filter.CorsFilter@24645461, org.springframework.security.web.authentication.logout.LogoutFilter@fb3e6dc, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1c4f7807, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@c5ae854, com.zidioDev.ExpenseManager.config.RateLimitFilter@490ecccb, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@4d3c0cce, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4fc26399, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7fa710f1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6f6c01d9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7229e508, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33638e3f, org.springframework.security.web.session.SessionManagementFilter@2da20e8a, org.springframework.security.web.access.ExceptionTranslationFilter@43491b7e, org.springframework.security.web.access.intercept.AuthorizationFilter@6e0d30e4]
+2025-03-15 01:16:17,561 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:16:17,562 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f79d076]]
+2025-03-15 01:16:17,564 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:16:17,567 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplicationTests in 1.895 seconds (process running for 19.216)
+2025-03-15 01:16:17,589 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:16:17,589 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3342ec79]]
+2025-03-15 01:16:17,589 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:16:17,592 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:16:17,592 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:16:17,592 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 01:16:17,607 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:16:17,608 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f79d076]]
+2025-03-15 01:16:17,608 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:16:17,610 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:16:17,610 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown initiated...
+2025-03-15 01:16:17,611 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-2 - Shutdown completed.
+2025-03-15 01:18:39,268 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:18:39,317 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 8580 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:18:39,317 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:18:39,317 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:18:40,259 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:18:40,337 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 71 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:18:40,936 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 01:18:40,945 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:18:40,948 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 01:18:40,949 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 01:18:41,009 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 01:18:41,010 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1639 ms
+2025-03-15 01:18:41,159 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:18:41,210 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:18:41,244 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:18:41,476 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:18:41,500 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:18:41,661 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4ca5cb99
+2025-03-15 01:18:41,663 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:18:42,922 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:18:43,078 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:18:43,382 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:18:43,789 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:18:43,789 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:18:44,724 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@61874f5d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@66dad66f, org.springframework.security.web.context.SecurityContextHolderFilter@74947f2b, org.springframework.security.web.header.HeaderWriterFilter@edf68f5, org.springframework.web.filter.CorsFilter@7cb040b7, org.springframework.security.web.authentication.logout.LogoutFilter@13b52853, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@63d85fdf, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@26e437dd, com.zidioDev.ExpenseManager.config.RateLimitFilter@273cb729, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@66008321, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@77e0b681, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1aa9635c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@736ded17, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@40def23, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@418f2af3, org.springframework.security.web.session.SessionManagementFilter@56972302, org.springframework.security.web.access.ExceptionTranslationFilter@7ec53f8f, org.springframework.security.web.access.intercept.AuthorizationFilter@2c4da654]
+2025-03-15 01:18:45,251 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:18:45,270 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 01:18:45,272 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:18:45,273 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7b779c7b]]
+2025-03-15 01:18:45,274 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:18:45,282 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 6.545 seconds (process running for 6.912)
+2025-03-15 01:19:45,258 INFO o.s.w.s.c.WebSocketMessageBrokerStats [MessageBroker-1] WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-03-15 01:26:10,044 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:26:10,045 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7b779c7b]]
+2025-03-15 01:26:10,045 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:26:10,055 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:26:10,057 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:26:10,061 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 01:29:29,793 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 01:29:29,837 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 13604 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 01:29:29,837 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 01:29:29,838 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 01:29:30,744 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 01:29:30,826 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 74 ms. Found 5 JPA repository interfaces.
+2025-03-15 01:29:31,440 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 01:29:31,450 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:29:31,453 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 01:29:31,454 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 01:29:31,522 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 01:29:31,524 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1631 ms
+2025-03-15 01:29:31,665 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 01:29:31,713 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 01:29:31,759 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 01:29:31,977 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 01:29:32,004 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 01:29:32,176 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70169464
+2025-03-15 01:29:32,177 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 01:29:33,424 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 01:29:33,581 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:29:33,902 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 01:29:34,318 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 01:29:34,318 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 01:29:35,242 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6cdfd50a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@26e437dd, org.springframework.security.web.context.SecurityContextHolderFilter@1f94df5, org.springframework.security.web.header.HeaderWriterFilter@362aa318, org.springframework.web.filter.CorsFilter@763b279, org.springframework.security.web.authentication.logout.LogoutFilter@3125a827, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1be551ec, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@52031e42, com.zidioDev.ExpenseManager.config.RateLimitFilter@2d44025b, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@2b3cbc2c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5337a5ae, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@73e2a3ae, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a244aa3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f491bd2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61874f5d, org.springframework.security.web.session.SessionManagementFilter@7ec53f8f, org.springframework.security.web.access.ExceptionTranslationFilter@5d066f, org.springframework.security.web.access.intercept.AuthorizationFilter@427b24c0]
+2025-03-15 01:29:35,783 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 01:29:35,796 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 01:29:35,796 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 01:29:35,796 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64a27d27]]
+2025-03-15 01:29:35,796 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 01:29:35,809 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 6.562 seconds (process running for 6.937)
+2025-03-15 01:30:32,711 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 01:30:32,713 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64a27d27]]
+2025-03-15 01:30:32,713 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 01:30:32,724 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 01:30:32,730 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 01:30:32,733 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-03-15 02:06:22,234 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 02:06:22,271 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 9644 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 02:06:22,272 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 02:06:22,273 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 02:06:23,131 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 02:06:23,207 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 68 ms. Found 5 JPA repository interfaces.
+2025-03-15 02:06:23,827 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 02:06:23,839 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:06:23,843 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 02:06:23,843 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 02:06:23,917 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 02:06:23,919 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1600 ms
+2025-03-15 02:06:24,064 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 02:06:24,144 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 02:06:24,195 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 02:06:24,496 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 02:06:24,528 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 02:06:24,723 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1115be8c
+2025-03-15 02:06:24,725 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 02:06:26,069 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 02:06:26,234 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 02:06:26,545 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 02:06:26,949 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 02:06:26,950 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 02:06:27,772 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@61874f5d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@66dad66f, org.springframework.security.web.context.SecurityContextHolderFilter@74947f2b, org.springframework.security.web.header.HeaderWriterFilter@edf68f5, org.springframework.web.filter.CorsFilter@7cb040b7, org.springframework.security.web.authentication.logout.LogoutFilter@13b52853, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@63d85fdf, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@26e437dd, com.zidioDev.ExpenseManager.config.RateLimitFilter@6fb8cfa7, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@4eb34397, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@77e0b681, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1aa9635c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@736ded17, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@40def23, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@418f2af3, org.springframework.security.web.session.SessionManagementFilter@56972302, org.springframework.security.web.access.ExceptionTranslationFilter@7ec53f8f, org.springframework.security.web.access.intercept.AuthorizationFilter@2c4da654]
+2025-03-15 02:06:28,264 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:06:28,284 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 02:06:28,286 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 02:06:28,287 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@b692323]]
+2025-03-15 02:06:28,287 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 02:06:28,296 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 6.718 seconds (process running for 7.05)
+2025-03-15 02:07:28,283 INFO o.s.w.s.c.WebSocketMessageBrokerStats [MessageBroker-1] WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-03-15 02:11:22,056 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 02:11:22,101 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 28064 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 02:11:22,102 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 02:11:22,102 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 02:11:22,335 WARN o.s.c.s.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zidioDev.ExpenseManager.ExpenseManagerApplication]
+2025-03-15 02:11:22,508 ERROR o.s.b.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zidioDev.ExpenseManager.ExpenseManagerApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:416)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:289)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.zidioDev.ExpenseManager.ExpenseManagerApplication.main(ExpenseManagerApplication.java:12)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'userServiceImpl' for bean class [com.zidioDev.ExpenseManager.service.UserServiceImpl] conflicts with existing, non-compatible bean definition of same name and class [com.zidioDev.ExpenseManager.service.impl.UserServiceImpl]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-03-15 02:11:34,830 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 02:11:34,867 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 5208 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 02:11:34,867 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 02:11:34,869 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 02:11:35,116 WARN o.s.c.s.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zidioDev.ExpenseManager.ExpenseManagerApplication]
+2025-03-15 02:11:35,306 ERROR o.s.b.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zidioDev.ExpenseManager.ExpenseManagerApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:416)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:289)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.zidioDev.ExpenseManager.ExpenseManagerApplication.main(ExpenseManagerApplication.java:12)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'userServiceImpl' for bean class [com.zidioDev.ExpenseManager.service.UserServiceImpl] conflicts with existing, non-compatible bean definition of same name and class [com.zidioDev.ExpenseManager.service.impl.UserServiceImpl]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-03-15 02:12:14,505 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 02:12:14,548 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 22180 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 02:12:14,549 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 02:12:14,550 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 02:12:15,475 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 02:12:15,550 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 68 ms. Found 5 JPA repository interfaces.
+2025-03-15 02:12:16,159 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 02:12:16,172 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:12:16,176 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 02:12:16,176 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 02:12:16,242 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 02:12:16,242 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1645 ms
+2025-03-15 02:12:16,395 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 02:12:16,445 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 02:12:16,472 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 02:12:16,713 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 02:12:16,737 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 02:12:16,901 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@64ed18ec
+2025-03-15 02:12:16,904 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 02:12:18,202 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 02:12:18,406 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 02:12:18,749 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 02:12:19,175 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 02:12:19,175 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 02:12:20,100 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@66dad66f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7cb040b7, org.springframework.security.web.context.SecurityContextHolderFilter@1b74dd88, org.springframework.security.web.header.HeaderWriterFilter@1f94df5, org.springframework.web.filter.CorsFilter@1aa9635c, org.springframework.security.web.authentication.logout.LogoutFilter@1a89d045, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@68938ccf, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@763b279, com.zidioDev.ExpenseManager.config.RateLimitFilter@6fb8cfa7, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@4eb34397, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@cdf3ee2, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@418f2af3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@40def23, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5337a5ae, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71d6e503, org.springframework.security.web.session.SessionManagementFilter@4a244aa3, org.springframework.security.web.access.ExceptionTranslationFilter@6d0e242f, org.springframework.security.web.access.intercept.AuthorizationFilter@664e8bb7]
+2025-03-15 02:12:20,602 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:12:20,620 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 02:12:20,622 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 02:12:20,624 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@74bcff71]]
+2025-03-15 02:12:20,624 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 02:12:20,632 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 6.655 seconds (process running for 7.016)
+2025-03-15 02:13:20,616 INFO o.s.w.s.c.WebSocketMessageBrokerStats [MessageBroker-1] WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-03-15 02:19:44,585 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-03-15 02:19:44,620 INFO o.s.b.StartupInfoLogger [main] Starting ExpenseManagerApplication using Java 21.0.5 with PID 25152 (C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager\target\classes started by JARVIS in C:\Users\gaint\OneDrive\Desktop\Codes\JAVA\ExpenseManager\backend\ExpenseManager)
+2025-03-15 02:19:44,621 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-15 02:19:44,622 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
+2025-03-15 02:19:45,442 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-15 02:19:45,515 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 67 ms. Found 5 JPA repository interfaces.
+2025-03-15 02:19:46,166 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-03-15 02:19:46,178 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:19:46,181 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-03-15 02:19:46,182 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-15 02:19:46,261 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-03-15 02:19:46,262 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1600 ms
+2025-03-15 02:19:46,420 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-15 02:19:46,506 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-03-15 02:19:46,565 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-03-15 02:19:46,853 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-15 02:19:46,888 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-03-15 02:19:47,086 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@54d60fa1
+2025-03-15 02:19:47,089 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-03-15 02:19:48,338 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-15 02:19:48,484 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 02:19:48,746 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-15 02:19:49,157 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'jwtAuthenticationFilter' configured for use
+2025-03-15 02:19:49,157 DEBUG o.s.w.f.GenericFilterBean [main] Filter 'rateLimitFilter' configured for use
+2025-03-15 02:19:49,978 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@678c654c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50e3be0a, org.springframework.security.web.context.SecurityContextHolderFilter@3a2cc282, org.springframework.security.web.header.HeaderWriterFilter@492939b, org.springframework.web.filter.CorsFilter@167650f8, org.springframework.security.web.authentication.logout.LogoutFilter@1cc00f56, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@6465f4a, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@19a5cfb8, com.zidioDev.ExpenseManager.config.RateLimitFilter@59a71bef, com.zidioDev.ExpenseManager.config.JwtAuthenticationFilter@13f6395d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6d0e242f, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@1f47e14d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cc3914a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d066f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1be551ec, org.springframework.security.web.session.SessionManagementFilter@e8acdfc, org.springframework.security.web.access.ExceptionTranslationFilter@7e4f42c0, org.springframework.security.web.access.intercept.AuthorizationFilter@e7afdd0]
+2025-03-15 02:19:50,471 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-15 02:19:50,490 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/api'
+2025-03-15 02:19:50,490 INFO o.s.c.l.CompositeLog [main] Starting...
+2025-03-15 02:19:50,490 INFO o.s.c.l.CompositeLog [main] BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5a0ec54c]]
+2025-03-15 02:19:50,490 INFO o.s.c.l.CompositeLog [main] Started.
+2025-03-15 02:19:50,500 INFO o.s.b.StartupInfoLogger [main] Started ExpenseManagerApplication in 6.44 seconds (process running for 6.788)
+2025-03-15 02:20:50,478 INFO o.s.w.s.c.WebSocketMessageBrokerStats [MessageBroker-1] WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-03-15 02:21:58,230 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopping...
+2025-03-15 02:21:58,230 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5a0ec54c]]
+2025-03-15 02:21:58,230 INFO o.s.c.l.CompositeLog [SpringApplicationShutdownHook] Stopped.
+2025-03-15 02:21:58,240 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-15 02:21:58,242 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-03-15 02:21:58,245 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

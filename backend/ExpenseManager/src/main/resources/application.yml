@@ -3,7 +3,7 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/expense_manager
+    url: jdbc:postgresql://localhost:5432/zidio
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
@@ -15,7 +15,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
 
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
@@ -89,7 +89,7 @@ spring:
       on-profile: dev
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/expense_manager_dev
+    url: jdbc:postgresql://localhost:5432/zidio
 
 app:
   cors:

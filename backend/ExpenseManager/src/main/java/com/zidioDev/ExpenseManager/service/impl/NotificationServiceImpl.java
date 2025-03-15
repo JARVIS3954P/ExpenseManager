@@ -1,4 +1,4 @@
-package com.zidioDev.ExpenseManager.service;
+package com.zidioDev.ExpenseManager.service.impl;
 
 import com.zidioDev.ExpenseManager.dto.NotificationDTO;
 import com.zidioDev.ExpenseManager.model.Notification;

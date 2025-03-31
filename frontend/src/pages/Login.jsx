@@ -1,34 +1,61 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
-  Box,
-  Button,
   Container,
-  TextField,
-  Typography,
+  Box,
   Paper,
-  Link,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  InputAdornment,
+  Alert,
+  CircularProgress,
 } from '@mui/material';
+import {
+  Visibility,
+  VisibilityOff,
+  Google as GoogleIcon,
+  GitHub as GitHubIcon,
+} from '@mui/icons-material';
 import { login } from '../store/slices/authSlice';
+
+// Mock users for development
+const mockUsers = [
+  { email: 'admin@zidio.com', password: 'admin123', role: 'ADMIN' },
+  { email: 'manager@zidio.com', password: 'manager123', role: 'MANAGER' },
+  { email: 'employee@zidio.com', password: 'employee123', role: 'EMPLOYEE' },
+];
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // For demo purposes, we'll just log in with dummy data
-    dispatch(login({
-      user: {
-        id: 1,
-        name: 'John Doe',
-        email: 'john@example.com',
-        role: 'user',
-      },
-      token: 'dummy-token',
-    }));
-    navigate('/');
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const result = await dispatch(login(formData)).unwrap();
+      const role = result.user.role.toLowerCase();
+      navigate(`/${role}/dashboard`);
+    } catch (err) {
+      // Error will be handled by the auth slice
+      console.error('Login failed:', err);
+    }
   };
 
   return (
@@ -51,13 +78,20 @@ function Login() {
             width: '100%',
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" gutterBottom>
             ZIDIO EMS
           </Typography>
-          <Typography component="h2" variant="h6" sx={{ mt: 2 }}>
-            Sign in
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            Enterprise Expense Management System
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+          {error && (
+            <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
             <TextField
               margin="normal"
               required
@@ -67,6 +101,8 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={formData.email}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -74,23 +110,64 @@ function Login() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
+              value={formData.password}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
-              Sign In
+              {loading ? <CircularProgress size={24} /> : 'Sign In'}
             </Button>
-            <Box sx={{ textAlign: 'center' }}>
-              <Link component={RouterLink} to="/signup" variant="body2">
-                Don't have an account? Sign up
-              </Link>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
+              <Button
+                variant="outlined"
+                startIcon={<GoogleIcon />}
+                onClick={() => alert('Google login not implemented')}
+              >
+                Google
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<GitHubIcon />}
+                onClick={() => alert('GitHub login not implemented')}
+              >
+                GitHub
+              </Button>
             </Box>
+
+            <Typography variant="body2" color="text.secondary" align="center">
+              For development, use these credentials:
+            </Typography>
+            <Typography variant="caption" color="text.secondary" align="center" display="block">
+              Admin: admin@zidio.com / admin123
+            </Typography>
+            <Typography variant="caption" color="text.secondary" align="center" display="block">
+              Manager: manager@zidio.com / manager123
+            </Typography>
+            <Typography variant="caption" color="text.secondary" align="center" display="block">
+              Employee: employee@zidio.com / employee123
+            </Typography>
           </Box>
         </Paper>
       </Box>

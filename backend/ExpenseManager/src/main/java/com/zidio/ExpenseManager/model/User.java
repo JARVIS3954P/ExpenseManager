@@ -1,6 +1,6 @@
 package com.zidio.ExpenseManager.model;
 
-import com.zidio.ExpenseManager.model.enums.UserRole;
+import com.zidio.ExpenseManager.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 

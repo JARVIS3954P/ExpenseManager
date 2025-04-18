@@ -1,7 +1,7 @@
 package com.zidio.ExpenseManager.model;
 
-import com.zidio.ExpenseManager.model.enums.ExpenseCategory;
-import com.zidio.ExpenseManager.model.enums.ExpenseStatus;
+import com.zidio.ExpenseManager.enums.ExpenseCategory;
+import com.zidio.ExpenseManager.enums.ExpenseStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

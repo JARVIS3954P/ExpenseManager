@@ -1,4 +1,4 @@
-package com.zidio.ExpenseManager.model.enums;
+package com.zidio.ExpenseManager.enums;
 
 public enum UserRole {
     EMPLOYEE,

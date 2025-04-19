@@ -13,11 +13,11 @@ import java.time.LocalDate;
 @Builder
 public class ExpenseRequestDTO {
     private String title;
-    private String description; // Optional — not in Expense entity
+    private String description;
     private Double amount;
     private Long userId;
     private ExpenseCategory category;
     private LocalDate expenseDate;
-    private MultipartFile attachment; // Optional
+    private MultipartFile attachment;
 }
 

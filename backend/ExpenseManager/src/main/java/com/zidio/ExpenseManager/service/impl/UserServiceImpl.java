@@ -5,7 +5,6 @@ import com.zidio.ExpenseManager.model.User;
 import com.zidio.ExpenseManager.repository.UserRepository;
 import com.zidio.ExpenseManager.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +56,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        // Check if user exists
+        if (!userRepository.existsById(userDTO.getId())) {
+            throw new RuntimeException("User not found");
+        }
+        User user = userRepository.save(mapToEntity(userDTO));
+        return mapToDTO(user);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDTO getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(this::mapToDTO)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

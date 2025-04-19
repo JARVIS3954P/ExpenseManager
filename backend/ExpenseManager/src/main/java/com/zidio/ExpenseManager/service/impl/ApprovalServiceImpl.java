@@ -45,7 +45,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     public Approval rejectExpense(Long expenseId, Long approvedById, String rejectionReason, String remarks) {
-        // Retrieve the expense and user
+
         Expense expense = expenseRepository.findById(expenseId)
                 .orElseThrow(() -> new RuntimeException("Expense not found"));
 
@@ -62,7 +62,6 @@ public class ApprovalServiceImpl implements ApprovalService {
                 .expense(expense)
                 .build();
 
-        // Save the approval to the database
         return approvalRepository.save(approval);
     }
 }

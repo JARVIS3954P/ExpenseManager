@@ -1,14 +1,12 @@
 package com.zidio.ExpenseManager.dto;
 
-import com.zidio.ExpenseManager.enums.ExpenseStatus;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ExpenseUpdateStatusDTO {
-    private ExpenseStatus status;
-    private String comment;
+    private String status; // APPROVED or REJECTED
+    private String rejectionReason; // Reason for rejection
+    private String remarks; // Remarks from the approver
 }

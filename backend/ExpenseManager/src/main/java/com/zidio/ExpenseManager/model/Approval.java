@@ -16,6 +16,9 @@ public class Approval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Boolean approved;
+    private String rejectionReason;
+
     private LocalDateTime approvedAt;
     private String remarks;
 

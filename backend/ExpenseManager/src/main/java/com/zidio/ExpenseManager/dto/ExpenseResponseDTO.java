@@ -1,8 +1,11 @@
 package com.zidio.ExpenseManager.dto;
 
+import com.zidio.ExpenseManager.enums.ExpenseCategory;
 import com.zidio.ExpenseManager.enums.ExpenseStatus;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,11 +16,10 @@ import java.time.LocalDateTime;
 public class ExpenseResponseDTO {
     private Long id;
     private String title;
-    private String description;
-    private Double amount;
+    private BigDecimal amount;
     private ExpenseStatus status;
-    private CategoryDTO category;
-    private UserDTO createdBy;
-    private AttachmentDTO attachment;
-    private LocalDateTime createdAt;
+    private ExpenseCategory category;
+    private Long userId;
+    private String attachmentUrl;
+    private LocalDate expenseDate;
 }

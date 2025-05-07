@@ -32,6 +32,7 @@ build/
 # Avoid exposing secrets
 .env
 *.properties
+.pdf
 
 ### VS Code ###
 .vscode/

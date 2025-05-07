@@ -2,6 +2,7 @@ package com.zidio.ExpenseManager.controller;
 
 import com.zidio.ExpenseManager.dto.UserDTO;
 import com.zidio.ExpenseManager.service.interfaces.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController {
 
     // Create a new user
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
@@ -39,7 +40,7 @@ public class UserController {
 
     // Update a user
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,@Valid @RequestBody UserDTO userDTO) {
         // Ensure the ID in the path matches the ID in the request body
         userDTO.setId(id);
         UserDTO updatedUser = userService.updateUser(userDTO);

@@ -74,7 +74,6 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .collect(Collectors.toList());
     }
 
-    // Fixed method to implement the interface method signature
     @Override
     public ExpenseResponseDTO updateExpenseStatus(Long expenseId, ExpenseUpdateStatusDTO statusDTO) {
         Expense expense = expenseRepository.findById(expenseId)

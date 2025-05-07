@@ -41,13 +41,7 @@ function EmployeeDashboard() {
       <Box sx={{ mt: 4, mb: 4 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Typography variant="h4">My Dashboard</Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            color="primary"
-          >
-            Submit Expense
-          </Button>
+
         </Box>
 
         <Grid container spacing={3}>

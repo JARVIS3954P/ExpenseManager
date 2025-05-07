@@ -15,18 +15,21 @@ import AdminDashboard from './pages/admin/Dashboard';
 import UserManagement from './pages/admin/UserManagement';
 import SystemSettings from './pages/admin/SystemSettings';
 import Reports from './pages/admin/Reports';
+import AdminProfile from './pages/admin/AdminProfile';
 
 // Manager Pages
 import ManagerDashboard from './pages/manager/Dashboard';
 import TeamExpenses from './pages/manager/TeamExpenses';
 import Approvals from './pages/manager/Approvals';
 import TeamAnalytics from './pages/manager/TeamAnalytics';
+import ManagerProfile from './pages/manager/ManagerProfile';
 
 // Employee Pages
 import EmployeeDashboard from './pages/employee/Dashboard';
 import MyExpenses from './pages/employee/MyExpenses';
 import SubmitExpense from './pages/employee/SubmitExpense';
 import TeamOverview from './pages/employee/TeamOverview';
+import EmployeeProfile from './pages/employee/EmployeeProfile';
 
 // Auth Pages
 import Login from './pages/Login';
@@ -103,6 +106,7 @@ function App() {
               <Route path="users" element={<UserManagement />} />
               <Route path="settings" element={<SystemSettings />} />
               <Route path="reports" element={<Reports />} />
+              <Route path="profile" element={<AdminProfile />} />
             </Route>
 
             {/* Manager Routes */}
@@ -119,6 +123,7 @@ function App() {
               <Route path="expenses" element={<TeamExpenses />} />
               <Route path="approvals" element={<Approvals />} />
               <Route path="analytics" element={<TeamAnalytics />} />
+              <Route path="profile" element={<ManagerProfile />} />
             </Route>
 
             {/* Employee Routes */}
@@ -135,6 +140,7 @@ function App() {
               <Route path="expenses" element={<MyExpenses />} />
               <Route path="submit" element={<SubmitExpense />} />
               <Route path="team" element={<TeamOverview />} />
+              <Route path="profile" element={<EmployeeProfile />} />
             </Route>
 
             {/* Default Route */}

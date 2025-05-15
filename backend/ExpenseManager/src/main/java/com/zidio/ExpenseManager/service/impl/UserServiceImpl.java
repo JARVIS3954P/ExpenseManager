@@ -1,43 +1,48 @@
 package com.zidio.ExpenseManager.service.impl;
 
 import com.zidio.ExpenseManager.dto.UserDTO;
+import com.zidio.ExpenseManager.enums.UserRole;
 import com.zidio.ExpenseManager.model.User;
 import com.zidio.ExpenseManager.repository.UserRepository;
 import com.zidio.ExpenseManager.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
-    private UserDTO mapToDTO(User user) {
-        return UserDTO.builder()
-                .id(user.getId())
-                .username(user.getFullName())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .build();
-    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-    private User mapToEntity(UserDTO dto) {
-        return User.builder()
-                .id(dto.getId())
-                .fullName(dto.getUsername())
-                .email(dto.getEmail())
-                .role(dto.getRole())
-                .build();
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        User user = userRepository.save(mapToEntity(userDTO));
-        return mapToDTO(user);
+        User user = User.builder()
+                .fullName(userDTO.getUsername())
+                .email(userDTO.getEmail())
+                .password(userDTO.getEmail()) // Replace with encoded password logic
+                .role(userDTO.getRole())
+                .build();
+        return mapToDTO(userRepository.save(user));
     }
 
     @Override
@@ -57,12 +62,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        // Check if user exists
-        if (!userRepository.existsById(userDTO.getId())) {
-            throw new RuntimeException("User not found");
-        }
-        User user = userRepository.save(mapToEntity(userDTO));
-        return mapToDTO(user);
+        User user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setFullName(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setRole(userDTO.getRole());
+
+        return mapToDTO(userRepository.save(user));
     }
 
     @Override
@@ -74,6 +81,15 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .map(this::mapToDTO)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
+    private UserDTO mapToDTO(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .username(user.getFullName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
     }
 }

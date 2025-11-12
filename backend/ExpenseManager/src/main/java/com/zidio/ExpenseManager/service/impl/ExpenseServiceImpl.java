@@ -181,6 +181,18 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
+    public List<ExpenseResponseDTO> getExpensesForApproval() {
+        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User approver = userRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("Approver not found in database"));
+
+        return expenseRepository.findByCurrentApproverId(approver.getId())
+                .stream()
+                .map(this::mapToDTO) // Reuse your existing mapping function
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteExpense(Long id) {
         expenseRepository.deleteById(id);
     }

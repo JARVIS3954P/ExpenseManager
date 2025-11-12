@@ -9,4 +9,5 @@ import java.util.List;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findByUserId(Long userId);
     List<Expense> findByStatus(ExpenseStatus status);
+    List<Expense> findByCurrentApproverId(Long approverId);
 }

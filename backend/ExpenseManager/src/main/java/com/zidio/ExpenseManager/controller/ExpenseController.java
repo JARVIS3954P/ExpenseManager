@@ -7,12 +7,13 @@ import com.zidio.ExpenseManager.service.interfaces.ExpenseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/expenses")
+@RequestMapping("/api/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
 
@@ -54,5 +55,12 @@ public class ExpenseController {
     public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
         expenseService.deleteExpense(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/for-approval")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+    public ResponseEntity<List<ExpenseResponseDTO>> getExpensesForApproval() {
+        List<ExpenseResponseDTO> expenses = expenseService.getExpensesForApproval();
+        return ResponseEntity.ok(expenses);
     }
 }

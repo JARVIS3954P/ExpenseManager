@@ -1,151 +1,138 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import apiClient from '../../api/axios';
 
-// Async thunks for expense actions
+// Thunk to fetch all expenses for the logged-in user
 export const fetchExpenses = createAsyncThunk(
   'expenses/fetchExpenses',
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('/api/expenses', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await apiClient.get('/expenses');
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || { message: 'Failed to fetch expenses' });
     }
   }
 );
 
+// Thunk to fetch expenses pending approval for the current manager/admin
+export const fetchPendingApprovals = createAsyncThunk(
+  'expenses/fetchPendingApprovals',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get('/expenses/for-approval');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+// Thunk to submit a new expense
 export const submitExpense = createAsyncThunk(
   'expenses/submitExpense',
   async (expenseData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post('/api/expenses', expenseData, {
-        headers: { Authorization: `Bearer ${token}` }
+      const formData = new FormData();
+      // Append all key-value pairs from expenseData to formData
+      for (const key in expenseData) {
+        if (expenseData.hasOwnProperty(key) && expenseData[key] !== null) {
+          formData.append(key, expenseData[key]);
+        }
+      }
+
+      const response = await apiClient.post('/expenses', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || { message: 'Submission failed' });
     }
   }
 );
 
-export const updateExpense = createAsyncThunk(
-  'expenses/updateExpense',
-  async ({ id, data }, { rejectWithValue }) => {
+// Thunk to update an expense's status (approve/reject)
+export const updateExpenseStatus = createAsyncThunk(
+  'expenses/updateExpenseStatus',
+  async ({ expenseId, status, rejectionReason = '', remarks = '' }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.put(`/api/expenses/${id}`, data, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const payload = { status, rejectionReason, remarks };
+      const response = await apiClient.put(`/expenses/${expenseId}/status`, payload);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
-    }
-  }
-);
-
-export const deleteExpense = createAsyncThunk(
-  'expenses/deleteExpense',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/expenses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      return id;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data);
     }
   }
 );
 
 const initialState = {
-  expenses: [],
+  items: [],
   loading: false,
   error: null,
-  filters: {
-    status: 'all',
-    category: 'all',
-    dateRange: null,
-  },
 };
 
 const expenseSlice = createSlice({
   name: 'expenses',
   initialState,
   reducers: {
-    setFilters: (state, action) => {
-      state.filters = { ...state.filters, ...action.payload };
-    },
-    clearFilters: (state) => {
-      state.filters = initialState.filters;
-    },
     clearError: (state) => {
       state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Expenses
+      // Reducers for fetchExpenses
       .addCase(fetchExpenses.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchExpenses.fulfilled, (state, action) => {
         state.loading = false;
-        state.expenses = action.payload;
+        state.items = action.payload;
       })
       .addCase(fetchExpenses.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || 'Failed to fetch expenses';
+        state.error = action.payload;
       })
-      // Submit Expense
+      // Reducers for fetchPendingApprovals
+      .addCase(fetchPendingApprovals.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPendingApprovals.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchPendingApprovals.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Reducers for submitExpense
       .addCase(submitExpense.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(submitExpense.fulfilled, (state, action) => {
         state.loading = false;
-        state.expenses.push(action.payload);
+        state.items.push(action.payload);
       })
       .addCase(submitExpense.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || 'Failed to submit expense';
+        state.error = action.payload;
       })
-      // Update Expense
-      .addCase(updateExpense.pending, (state) => {
-        state.loading = true;
+      // Reducers for updateExpenseStatus
+      .addCase(updateExpenseStatus.pending, (state) => {
+        // We might not want a full-page loader for this, but can set a specific flag if needed
         state.error = null;
       })
-      .addCase(updateExpense.fulfilled, (state, action) => {
-        state.loading = false;
-        const index = state.expenses.findIndex(exp => exp.id === action.payload.id);
-        if (index !== -1) {
-          state.expenses[index] = action.payload;
-        }
+      .addCase(updateExpenseStatus.fulfilled, (state, action) => {
+        // Remove the processed expense from the list of pending items
+        state.items = state.items.filter(item => item.id !== action.payload.id);
       })
-      .addCase(updateExpense.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || 'Failed to update expense';
-      })
-      // Delete Expense
-      .addCase(deleteExpense.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteExpense.fulfilled, (state, action) => {
-        state.loading = false;
-        state.expenses = state.expenses.filter(exp => exp.id !== action.payload);
-      })
-      .addCase(deleteExpense.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || 'Failed to delete expense';
+      .addCase(updateExpenseStatus.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
 
-export const { setFilters, clearFilters, clearError } = expenseSlice.actions;
-export default expenseSlice.reducer; 
+export const { clearError } = expenseSlice.actions;
+export default expenseSlice.reducer;

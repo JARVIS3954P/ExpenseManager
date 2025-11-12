@@ -1,94 +1,77 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import apiClient from '../../api/axios';
 
-// Mock users for development
-const mockUsers = {
-  'admin@zidio.com': {
-    password: 'admin123',
-    user: {
-      id: 1,
-      name: 'Admin User',
-      email: 'admin@zidio.com',
-      role: 'ADMIN'
-    }
-  },
-  'manager@zidio.com': {
-    password: 'manager123',
-    user: {
-      id: 2,
-      name: 'Manager User',
-      email: 'manager@zidio.com',
-      role: 'MANAGER'
-    }
-  },
-  'employee@zidio.com': {
-    password: 'employee123',
-    user: {
-      id: 3,
-      name: 'Employee User',
-      email: 'employee@zidio.com',
-      role: 'EMPLOYEE'
-    }
+/**
+ * Decodes the JWT to extract user information.
+ * NOTE: This is a simplified approach. In a production environment with more complex security,
+ * you would typically make a separate API call to a '/users/me' endpoint after login
+ * to get the full, trusted user profile from the server.
+ */
+const decodeToken = (token) => {
+  try {
+    const payloadBase64 = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+
+    // The 'sub' claim in a JWT is the standard for the "subject" (usually the username/email).
+    // Spring Security also puts custom claims like 'roles' or 'userId' in the token.
+    return {
+      id: decodedPayload.userId,
+      email: decodedPayload.sub,
+      role: decodedPayload.role,
+      name: decodedPayload.fullName
+    };
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+    return null;
   }
 };
 
-// Async thunks for authentication actions
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const mockUser = mockUsers[credentials.email];
-      if (!mockUser || mockUser.password !== credentials.password) {
-        throw new Error('Invalid credentials');
-      }
-
-      const token = btoa(JSON.stringify(mockUser.user)); // Base64 encode user data as mock token
+      const response = await apiClient.post('/auth/login', credentials);
+      const { token } = response.data;
       localStorage.setItem('token', token);
+
+      const user = decodeToken(token);
+      if (!user) {
+        throw new Error("Invalid token received from server.");
+      }
       
-      return {
-        user: mockUser.user,
-        token
-      };
+      return { token, user };
     } catch (error) {
-      return rejectWithValue({ message: error.message });
+      const errorMsg = error.response?.data?.message || 'Invalid credentials. Please try again.';
+      return rejectWithValue({ message: errorMsg });
     }
   }
 );
 
-export const logout = createAsyncThunk(
-  'auth/logout',
-  async () => {
-    localStorage.removeItem('token');
-  }
-);
+export const logout = createAsyncThunk('auth/logout', async () => {
+  localStorage.removeItem('token');
+});
 
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
   async (_, { rejectWithValue }) => {
-    try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('No token found');
-      
-      try {
-        const user = JSON.parse(atob(token)); // Decode the mock token
-        return user;
-      } catch {
-        throw new Error('Invalid token');
-      }
-    } catch (error) {
-      return rejectWithValue({ message: error.message });
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return rejectWithValue({ message: 'No token found' });
     }
+
+    const user = decodeToken(token);
+    if (!user) {
+      localStorage.removeItem('token'); // Clean up invalid token
+      return rejectWithValue({ message: 'Invalid or expired token' });
+    }
+    
+    return { user };
   }
 );
 
 const initialState = {
   user: null,
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem('token') || null,
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -104,7 +87,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login
+      // Login action states
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -117,33 +100,35 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
         state.error = action.payload?.message || 'Login failed';
       })
-      // Logout
+      // Logout action states
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
+        state.loading = false;
       })
-      // Check Auth
+      // Check Auth action states
       .addCase(checkAuth.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true; // Set loading to true while we verify
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(checkAuth.rejected, (state, action) => {
         state.loading = false;
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
-        state.error = action.payload?.message || 'Authentication failed';
       });
   },
 });
 
 export const { clearError } = authSlice.actions;
-export default authSlice.reducer; 
+export default authSlice.reducer;

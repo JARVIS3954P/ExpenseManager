@@ -35,7 +35,7 @@ public class Expense {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Optional: approval linkage
-    @OneToOne(mappedBy = "expense", cascade = CascadeType.ALL)
-    private Approval approval;
+    @ManyToOne
+    @JoinColumn(name = "current_approver_id")
+    private User currentApprover;
 }

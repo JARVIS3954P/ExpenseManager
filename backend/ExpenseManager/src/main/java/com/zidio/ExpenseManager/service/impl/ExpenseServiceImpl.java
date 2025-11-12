@@ -11,9 +11,11 @@ import com.zidio.ExpenseManager.repository.ExpenseRepository;
 import com.zidio.ExpenseManager.repository.UserRepository;
 import com.zidio.ExpenseManager.service.interfaces.ApprovalService;
 import com.zidio.ExpenseManager.service.interfaces.ExpenseService;
+import com.zidio.ExpenseManager.service.interfaces.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
     private final ApprovalService approvalService;
+    private final FileStorageService fileStorageService;
 
     private ExpenseResponseDTO mapToDTO(Expense expense) {
         return ExpenseResponseDTO.builder()
@@ -47,7 +50,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .title(dto.getTitle())
                 .amount(BigDecimal.valueOf(dto.getAmount()))
                 .category(dto.getCategory())
-                .status(ExpenseStatus.PENDING)
+                .status(ExpenseStatus.PENDING_FINANCE_APPROVAL)
                 .expenseDate(dto.getExpenseDate())
                 .user(user)
                 .build();
@@ -55,8 +58,31 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseResponseDTO createExpense(ExpenseRequestDTO requestDTO) {
-        Expense expense = expenseRepository.save(mapToEntity(requestDTO));
-        return mapToDTO(expense);
+        User user = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + requestDTO.getUserId()));
+
+        Expense expense = Expense.builder()
+                .title(requestDTO.getTitle())
+                .amount(BigDecimal.valueOf(requestDTO.getAmount()))
+                .category(requestDTO.getCategory())
+                .status(ExpenseStatus.PENDING_FINANCE_APPROVAL)
+                .expenseDate(requestDTO.getExpenseDate())
+                .user(user)
+                .build();
+
+        if (requestDTO.getAttachment() != null && !requestDTO.getAttachment().isEmpty()) {
+            try {
+                String fileName = fileStorageService.storeFile(requestDTO.getAttachment());
+                // In a real app, you'd store a full URL. For now, the filename is fine.
+                expense.setAttachmentUrl(fileName);
+            } catch (IOException e) {
+                // In a real app, you'd have a proper exception handling strategy
+                throw new RuntimeException("Failed to store file", e);
+            }
+        }
+
+        Expense savedExpense = expenseRepository.save(expense);
+        return mapToDTO(savedExpense);
     }
 
     @Override

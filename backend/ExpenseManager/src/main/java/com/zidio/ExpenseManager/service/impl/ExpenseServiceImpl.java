@@ -4,6 +4,7 @@ import com.zidio.ExpenseManager.dto.ExpenseRequestDTO;
 import com.zidio.ExpenseManager.dto.ExpenseResponseDTO;
 import com.zidio.ExpenseManager.dto.ExpenseUpdateStatusDTO;
 import com.zidio.ExpenseManager.enums.ExpenseStatus;
+import com.zidio.ExpenseManager.enums.UserRole;
 import com.zidio.ExpenseManager.model.Approval;
 import com.zidio.ExpenseManager.model.Expense;
 import com.zidio.ExpenseManager.model.User;
@@ -12,7 +13,10 @@ import com.zidio.ExpenseManager.repository.UserRepository;
 import com.zidio.ExpenseManager.service.interfaces.ApprovalService;
 import com.zidio.ExpenseManager.service.interfaces.ExpenseService;
 import com.zidio.ExpenseManager.service.interfaces.FileStorageService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,6 +32,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final UserRepository userRepository;
     private final ApprovalService approvalService;
     private final FileStorageService fileStorageService;
+
+    private static final BigDecimal AUTO_APPROVAL_THRESHOLD = new BigDecimal("5000.00"); // ₹5000
 
     private ExpenseResponseDTO mapToDTO(Expense expense) {
         return ExpenseResponseDTO.builder()
@@ -57,6 +63,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
+    @Transactional
     public ExpenseResponseDTO createExpense(ExpenseRequestDTO requestDTO) {
         User user = userRepository.findById(requestDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + requestDTO.getUserId()));
@@ -65,7 +72,6 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .title(requestDTO.getTitle())
                 .amount(BigDecimal.valueOf(requestDTO.getAmount()))
                 .category(requestDTO.getCategory())
-                .status(ExpenseStatus.PENDING_FINANCE_APPROVAL)
                 .expenseDate(requestDTO.getExpenseDate())
                 .user(user)
                 .build();
@@ -73,12 +79,27 @@ public class ExpenseServiceImpl implements ExpenseService {
         if (requestDTO.getAttachment() != null && !requestDTO.getAttachment().isEmpty()) {
             try {
                 String fileName = fileStorageService.storeFile(requestDTO.getAttachment());
-                // In a real app, you'd store a full URL. For now, the filename is fine.
                 expense.setAttachmentUrl(fileName);
             } catch (IOException e) {
-                // In a real app, you'd have a proper exception handling strategy
                 throw new RuntimeException("Failed to store file", e);
             }
+        }
+
+        // Check if the amount is below or equal to the auto-approval threshold
+        if (expense.getAmount().compareTo(AUTO_APPROVAL_THRESHOLD) <= 0) {
+            // If it is, approve it immediately
+            expense.setStatus(ExpenseStatus.APPROVED);
+            expense.setCurrentApprover(null); // No approver needed
+        } else {
+            // If it's over the threshold, it needs manager approval
+            User manager = user.getManager();
+            if (manager == null) {
+                // This is a business rule decision: what happens if a user has no manager?
+                // For now, we'll throw an error. In a real app, this might go to a default admin.
+                throw new IllegalStateException("User does not have a manager assigned. Cannot submit expense for approval.");
+            }
+            expense.setStatus(ExpenseStatus.PENDING_MANAGER_APPROVAL);
+            expense.setCurrentApprover(manager); // Assign it to the user's manager
         }
 
         Expense savedExpense = expenseRepository.save(expense);
@@ -101,19 +122,60 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
+    @Transactional
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     public ExpenseResponseDTO updateExpenseStatus(Long expenseId, ExpenseUpdateStatusDTO statusDTO) {
-        Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+        //Get the currently logged-in user from the security context
+        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User approver = userRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("Approver not found in database"));
 
-        if ("APPROVED".equalsIgnoreCase(statusDTO.getStatus())) {
-            // Approve the expense
-            Approval approval = approvalService.approveExpense(expenseId, 1L, statusDTO.getRemarks());
-            expense.setStatus(ExpenseStatus.APPROVED); // Set the status to APPROVED
-        } else if ("REJECTED".equalsIgnoreCase(statusDTO.getStatus())) {
-            // Reject the expense
-            Approval approval = approvalService.rejectExpense(expenseId, 1L, statusDTO.getRejectionReason(), statusDTO.getRemarks());
-            expense.setStatus(ExpenseStatus.REJECTED); // Set the status to REJECTED
+        // Find the expense that needs to be updated
+        Expense expense = expenseRepository.findById(expenseId)
+                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + expenseId));
+
+        // SECURITY CHECK: Is this user the designated approver for this expense?
+        if (!expense.getCurrentApprover().getId().equals(approver.getId())) {
+            throw new SecurityException("You are not the current approver for this expense.");
         }
+
+        // Handle REJECTION
+        if ("REJECTED".equalsIgnoreCase(statusDTO.getStatus())) {
+            expense.setStatus(ExpenseStatus.REJECTED);
+            expense.setCurrentApprover(null); // Workflow ends
+            Expense updatedExpense = expenseRepository.save(expense);
+            // TODO: Send email notification to user that their expense was rejected.
+            return mapToDTO(updatedExpense);
+        }
+
+        // Handle APPROVAL
+        if ("APPROVED".equalsIgnoreCase(statusDTO.getStatus())) {
+            switch (expense.getStatus()) {
+                case PENDING_MANAGER_APPROVAL:
+                    // A Manager is approving. The next step is Admin approval.
+                    // Find a user with the ADMIN role to be the next approver.
+                    User adminApprover = userRepository.findAll().stream()
+                            .filter(user -> user.getRole() == UserRole.ADMIN)
+                            .findFirst()
+                            .orElseThrow(() -> new IllegalStateException("No Admin user found to assign for final approval."));
+
+                    expense.setStatus(ExpenseStatus.PENDING_ADMIN_APPROVAL);
+                    expense.setCurrentApprover(adminApprover);
+                    // TODO: Send email notification to user that their expense has passed manager review.
+                    break;
+
+                case PENDING_ADMIN_APPROVAL:
+                    // An Admin is giving the final approval.
+                    expense.setStatus(ExpenseStatus.APPROVED);
+                    expense.setCurrentApprover(null); // Workflow ends successfully.
+                    // TODO: Send email notification to user that their expense is fully approved.
+                    break;
+
+                default:
+                    throw new IllegalStateException("Cannot approve an expense that is not in a pending state.");
+            }
+        }
+
         Expense updatedExpense = expenseRepository.save(expense);
         return mapToDTO(updatedExpense);
     }

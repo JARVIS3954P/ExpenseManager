@@ -21,7 +21,7 @@ public class ExpenseController {
 
     // Create a new expense
     @PostMapping
-    public ResponseEntity<ExpenseResponseDTO> createExpense(@RequestBody ExpenseRequestDTO requestDTO) {
+    public ResponseEntity<ExpenseResponseDTO> createExpense(@ModelAttribute ExpenseRequestDTO requestDTO) {
         ExpenseResponseDTO createdExpense = expenseService.createExpense(requestDTO);
         return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
     }

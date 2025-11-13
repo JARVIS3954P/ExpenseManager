@@ -33,7 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ApprovalService approvalService;
     private final FileStorageService fileStorageService;
 
-    private static final BigDecimal AUTO_APPROVAL_THRESHOLD = new BigDecimal("5000.00"); // ₹5000
+    private static final BigDecimal AUTO_APPROVAL_THRESHOLD = new BigDecimal("50.00"); //$50
 
     private ExpenseResponseDTO mapToDTO(Expense expense) {
         return ExpenseResponseDTO.builder()

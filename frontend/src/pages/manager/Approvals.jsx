@@ -1,217 +1,146 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPendingApprovals, updateExpenseStatus } from '../../store/slices/expenseSlice';
 import {
-  Container,
-  Paper,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-  IconButton,
-  Chip,
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
+  Container, Paper, Typography, Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Button, Box, Dialog, DialogTitle, DialogContent,
+  DialogActions, TextField, Grid, CircularProgress, Alert, IconButton,
 } from '@mui/material';
-import {
-  CheckCircle as CheckCircleIcon,
-  Cancel as CancelIcon,
-  Receipt as ReceiptIcon,
-} from '@mui/icons-material';
-
-// Mock data for demo
-const mockPendingExpenses = [
-  {
-    id: 1,
-    employeeName: 'John Doe',
-    title: 'Business Trip to New York',
-    amount: 1500,
-    category: 'Travel',
-    date: '2024-03-20',
-    description: 'Flight and hotel expenses for client meeting',
-  },
-  {
-    id: 2,
-    employeeName: 'Jane Smith',
-    title: 'Team Building Event',
-    amount: 500,
-    category: 'Entertainment',
-    date: '2024-03-19',
-    description: 'Team building activity at local venue',
-  },
-  {
-    id: 3,
-    employeeName: 'Mike Johnson',
-    title: 'Office Equipment',
-    amount: 800,
-    category: 'Office Supplies',
-    date: '2024-03-18',
-    description: 'New monitor and keyboard',
-  },
-];
+import { CheckCircle as CheckCircleIcon, Cancel as CancelIcon, Visibility as VisibilityIcon } from '@mui/icons-material';
 
 function Approvals() {
+  const dispatch = useDispatch();
+  const { items: pendingExpenses, loading, error } = useSelector((state) => state.expenses);
+
   const [selectedExpense, setSelectedExpense] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [comment, setComment] = useState('');
-  const [expenses, setExpenses] = useState(mockPendingExpenses);
+  const [isReviewOpen, setReviewOpen] = useState(false);
+  const [remarks, setRemarks] = useState('');
+  const [actionType, setActionType] = useState(null); // 'APPROVE' or 'REJECT'
 
-  const handleOpenDialog = (expense) => {
+  // Fetch pending approvals when the component mounts
+  useEffect(() => {
+    dispatch(fetchPendingApprovals());
+  }, [dispatch]);
+
+  const handleOpenReview = (expense, type) => {
     setSelectedExpense(expense);
-    setOpenDialog(true);
+    setActionType(type);
+    setReviewOpen(true);
   };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleCloseReview = () => {
+    setReviewOpen(false);
     setSelectedExpense(null);
-    setComment('');
+    setRemarks('');
+    setActionType(null);
   };
 
-  const handleApprove = () => {
-    // In a real app, this would make an API call
-    setExpenses(expenses.filter(exp => exp.id !== selectedExpense.id));
-    handleCloseDialog();
+  const handleSubmitReview = async () => {
+    if (!selectedExpense) return;
+
+    const payload = {
+      expenseId: selectedExpense.id,
+      status: actionType === 'APPROVE' ? 'APPROVED' : 'REJECTED',
+      remarks: remarks,
+    };
+
+    try {
+      await dispatch(updateExpenseStatus(payload)).unwrap();
+      // The slice now removes the item from the state, so we don't need to re-fetch manually.
+    } catch (err) {
+      // Error will be handled by the slice's rejected state
+      console.error("Failed to update status:", err);
+    } finally {
+      handleCloseReview();
+    }
   };
 
-  const handleReject = () => {
-    // In a real app, this would make an API call
-    setExpenses(expenses.filter(exp => exp.id !== selectedExpense.id));
-    handleCloseDialog();
+  const renderContent = () => {
+    if (loading) {
+      return <Box display="flex" justifyContent="center" p={5}><CircularProgress /></Box>;
+    }
+    if (error) {
+      return <Alert severity="error">Failed to load approvals: {error.message || 'Server Error'}</Alert>;
+    }
+    if (pendingExpenses.length === 0) {
+      return <Typography align="center" p={3}>No pending approvals.</Typography>;
+    }
+    return (
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Employee ID</TableCell> 
+              <TableCell>Title</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell align="right">Amount</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {pendingExpenses.map((expense) => (
+              <TableRow key={expense.id}>
+                <TableCell>{expense.userId}</TableCell>
+                <TableCell>{expense.title}</TableCell>
+                <TableCell>{expense.category}</TableCell>
+                <TableCell align="right">${expense.amount.toLocaleString()}</TableCell>
+                <TableCell>{expense.expenseDate}</TableCell>
+                <TableCell>
+                  <IconButton size="small" color="success" onClick={() => handleOpenReview(expense, 'APPROVE')}>
+                    <CheckCircleIcon />
+                  </IconButton>
+                  <IconButton size="small" color="error" onClick={() => handleOpenReview(expense, 'REJECTE')}>
+                    <CancelIcon />
+                  </IconButton>
+                  <IconButton size="small" /* onClick={showReceipt} */>
+                    <VisibilityIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
   };
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5">Pending Approvals</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Review and approve expense submissions from your team
-        </Typography>
+        <Typography variant="body2" color="text.secondary">Review and action expense submissions from your team.</Typography>
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Employee</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {expenses.map((expense) => (
-              <TableRow key={expense.id}>
-                <TableCell>{expense.employeeName}</TableCell>
-                <TableCell>{expense.title}</TableCell>
-                <TableCell>{expense.category}</TableCell>
-                <TableCell>${expense.amount.toFixed(2)}</TableCell>
-                <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    color="success"
-                    onClick={() => handleOpenDialog(expense)}
-                  >
-                    <CheckCircleIcon />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    color="error"
-                    onClick={() => handleOpenDialog(expense)}
-                  >
-                    <CancelIcon />
-                  </IconButton>
-                  <IconButton size="small">
-                    <ReceiptIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-            {expenses.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={6} align="center">
-                  No pending approvals
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Paper>
+        {renderContent()}
+      </Paper>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>
-          Review Expense: {selectedExpense?.title}
-        </DialogTitle>
+      <Dialog open={isReviewOpen} onClose={handleCloseReview} maxWidth="sm" fullWidth>
+        <DialogTitle>{actionType === 'APPROVE' ? 'Approve' : 'Reject'} Expense: {selectedExpense?.title}</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
-              <Typography variant="subtitle2" color="text.secondary">
-                Employee
-              </Typography>
-              <Typography variant="body1">
-                {selectedExpense?.employeeName}
-              </Typography>
+              <Typography variant="subtitle2">Employee ID:</Typography>
+              <Typography variant="body1">{selectedExpense?.userId}</Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2" color="text.secondary">
-                Amount
-              </Typography>
-              <Typography variant="body1">
-                ${selectedExpense?.amount.toFixed(2)}
-              </Typography>
+            <Grid item xs={6}>
+              <Typography variant="subtitle2">Amount:</Typography>
+              <Typography variant="body1">${selectedExpense?.amount.toLocaleString()}</Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2" color="text.secondary">
-                Category
-              </Typography>
-              <Typography variant="body1">
-                {selectedExpense?.category}
-              </Typography>
+            <Grid item xs={6}>
+              <Typography variant="subtitle2">Category:</Typography>
+              <Typography variant="body1">{selectedExpense?.category}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle2" color="text.secondary">
-                Description
-              </Typography>
-              <Typography variant="body1">
-                {selectedExpense?.description}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                rows={3}
-                label="Comments"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
+              <TextField fullWidth multiline rows={3} label="Remarks (Optional)" value={remarks} onChange={(e) => setRemarks(e.target.value)} />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button
-            onClick={handleReject}
-            color="error"
-            variant="contained"
-          >
-            Reject
-          </Button>
-          <Button
-            onClick={handleApprove}
-            color="success"
-            variant="contained"
-          >
-            Approve
+          <Button onClick={handleCloseReview}>Cancel</Button>
+          <Button onClick={handleSubmitReview} color={actionType === 'APPROVE' ? 'success' : 'error'} variant="contained">
+            Confirm {actionType === 'APPROVE' ? 'Approval' : 'Rejection'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -219,4 +148,4 @@ function Approvals() {
   );
 }
 
-export default Approvals; 
+export default Approvals;

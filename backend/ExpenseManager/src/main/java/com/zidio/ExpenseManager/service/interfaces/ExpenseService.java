@@ -14,4 +14,6 @@ public interface ExpenseService {
     void deleteExpense(Long id);
 
     List<ExpenseResponseDTO> getExpensesForApproval();
+
+    List<ExpenseResponseDTO> getTeamExpenses();
 }

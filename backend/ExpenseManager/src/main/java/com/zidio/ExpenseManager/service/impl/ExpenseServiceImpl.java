@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -195,5 +196,28 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void deleteExpense(Long id) {
         expenseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ExpenseResponseDTO> getTeamExpenses() {
+        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User manager = userRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("Current user not found"));
+
+        // Find all users who report to this manager
+        List<Long> teamMemberIds = userRepository.findAll().stream()
+                .filter(user -> user.getManager() != null && user.getManager().getId().equals(manager.getId()))
+                .map(User::getId)
+                .collect(Collectors.toList());
+
+        // If the team is empty, return an empty list
+        if (teamMemberIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Fetch all expenses for those team members
+        return expenseRepository.findByUserIdIn(teamMemberIds).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 }

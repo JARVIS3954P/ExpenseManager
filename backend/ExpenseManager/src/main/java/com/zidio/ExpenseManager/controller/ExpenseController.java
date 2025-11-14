@@ -63,4 +63,10 @@ public class ExpenseController {
         List<ExpenseResponseDTO> expenses = expenseService.getExpensesForApproval();
         return ResponseEntity.ok(expenses);
     }
+
+    @GetMapping("/team")
+    @PreAuthorize("hasRole('MANAGER')")
+    public ResponseEntity<List<ExpenseResponseDTO>> getTeamExpenses() {
+        return ResponseEntity.ok(expenseService.getTeamExpenses());
+    }
 }

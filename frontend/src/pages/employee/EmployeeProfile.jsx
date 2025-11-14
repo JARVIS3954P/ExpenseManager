@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../store/slices/userSlice';
 import {
   Box,
   Button,
@@ -19,6 +20,7 @@ import {
 import { Person as PersonIcon, Work as WorkIcon } from '@mui/icons-material';
 
 function EmployeeProfile() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,7 +41,14 @@ function EmployeeProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle profile update here
+    const updatedUserData = {
+      id: user.id,
+      username: `${formData.firstName} ${formData.lastName}`,
+      email: formData.email,
+      role: user.role, // Users can't change their own role
+      managerId: user.managerId, // Or get this from state if available
+    };
+    dispatch(updateUser(updatedUserData));
     setIsEditing(false);
   };
 

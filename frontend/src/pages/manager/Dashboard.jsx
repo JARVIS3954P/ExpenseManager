@@ -1,186 +1,88 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { fetchDashboardSummary } from '../../store/slices/analyticsSlice';
 import {
-  Box,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  Button,
-  LinearProgress,
+  Box, Container, Grid, Paper, Typography, List, ListItem, ListItemIcon, 
+  ListItemText, Divider, CircularProgress, Alert
 } from '@mui/material';
 import {
   Group as GroupIcon,
   Receipt as ReceiptIcon,
   CheckCircle as CheckCircleIcon,
-  Warning as WarningIcon,
-  TrendingUp as TrendingUpIcon,
+  Analytics as AnalyticsIcon,
 } from '@mui/icons-material';
 
-function ManagerDashboard() {
-  const stats = {
-    teamSize: 12,
-    pendingApprovals: 8,
-    monthlyBudget: 25000,
-    spentAmount: 18000,
-    budgetUtilization: (18000 / 25000) * 100,
-  };
+// Reusable StatCard component for consistency
+const StatCard = ({ title, value, icon }) => (
+  <Paper sx={{ p: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+    {icon}
+    <Box>
+      <Typography variant="h6">{value}</Typography>
+      <Typography variant="body2" color="text.secondary">{title}</Typography>
+    </Box>
+  </Paper>
+);
 
-  const pendingExpenses = [
-    { employee: 'John Smith', amount: 250, category: 'Travel', date: '2024-03-20' },
-    { employee: 'Sarah Johnson', amount: 150, category: 'Food', date: '2024-03-19' },
-    { employee: 'Mike Wilson', amount: 500, category: 'Office Supplies', date: '2024-03-18' },
-  ];
+function ManagerDashboard() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { dashboardSummary: stats, loading, error } = useSelector((state) => state.analytics);
+
+  useEffect(() => {
+    // This one thunk provides data for all dashboards
+    dispatch(fetchDashboardSummary());
+  }, [dispatch]);
+
+  // Conditional rendering for loading and error states
+  if (loading) {
+    return <Box display="flex" justifyContent="center" alignItems="center" height="50vh"><CircularProgress /></Box>;
+  }
+  if (error) {
+    return <Alert severity="error">Could not load dashboard data: {error.message}</Alert>;
+  }
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Department Overview
-        </Typography>
+        <Typography variant="h4" gutterBottom>Department Overview</Typography>
 
         <Grid container spacing={3}>
-          {/* Statistics Cards */}
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <GroupIcon sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.teamSize}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Team Members
-                </Typography>
-              </Box>
-            </Paper>
+          {/* Statistics Cards using live data */}
+          <Grid item xs={12} sm={6}>
+            <StatCard 
+              title="Team Members" 
+              value={stats.teamSize || 0} 
+              icon={<GroupIcon sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />} 
+            />
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <ReceiptIcon sx={{ fontSize: 40, color: 'warning.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.pendingApprovals}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Pending Approvals
-                </Typography>
-              </Box>
-            </Paper>
+          <Grid item xs={12} sm={6}>
+            <StatCard 
+              title="Pending Approvals" 
+              value={stats.pendingApprovals || 0} 
+              icon={<ReceiptIcon sx={{ fontSize: 40, color: 'warning.main', mr: 2 }} />} 
+            />
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <TrendingUpIcon sx={{ fontSize: 40, color: 'success.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">${stats.spentAmount.toLocaleString()}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Spent This Month
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <WarningIcon sx={{ fontSize: 40, color: 'error.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.budgetUtilization.toFixed(1)}%</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Budget Utilization
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-
-          {/* Budget Progress */}
+          {/* Quick Actions Panel */}
           <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Monthly Budget Progress
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Typography variant="body2" sx={{ mr: 2 }}>
-                  ${stats.spentAmount.toLocaleString()} / ${stats.monthlyBudget.toLocaleString()}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  ({stats.budgetUtilization.toFixed(1)}% used)
-                </Typography>
-              </Box>
-              <LinearProgress
-                variant="determinate"
-                value={stats.budgetUtilization}
-                sx={{ height: 10, borderRadius: 5 }}
-              />
-            </Paper>
-          </Grid>
-
-          {/* Pending Approvals */}
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                <Typography variant="h6">Pending Approvals</Typography>
-                <Button variant="contained" color="primary" size="small">
-                  View All
-                </Button>
-              </Box>
+              <Typography variant="h6" gutterBottom>Quick Actions</Typography>
               <List>
-                {pendingExpenses.map((expense, index) => (
-                  <React.Fragment key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <ReceiptIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={`${expense.employee} - ${expense.category}`}
-                        secondary={`$${expense.amount} • ${expense.date}`}
-                      />
-                      <Button variant="outlined" color="primary" size="small">
-                        Review
-                      </Button>
-                    </ListItem>
-                    {index < pendingExpenses.length - 1 && <Divider />}
-                  </React.Fragment>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-
-          {/* Team Performance */}
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Team Performance
-              </Typography>
-              <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <CheckCircleIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Expense Submission Rate"
-                    secondary="95% of team members submitted expenses on time"
-                  />
+                <ListItem button onClick={() => navigate('/manager/approvals')}>
+                  <ListItemIcon><CheckCircleIcon /></ListItemIcon>
+                  <ListItemText primary="Review Pending Approvals" />
                 </ListItem>
                 <Divider />
-                <ListItem>
-                  <ListItemIcon>
-                    <WarningIcon color="warning" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Policy Compliance"
-                    secondary="2 policy violations this month"
-                  />
+                <ListItem button onClick={() => navigate('/manager/expenses')}>
+                  <ListItemIcon><ReceiptIcon /></ListItemIcon>
+                  <ListItemText primary="View All Team Expenses" />
                 </ListItem>
                 <Divider />
-                <ListItem>
-                  <ListItemIcon>
-                    <TrendingUpIcon color="primary" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Budget Efficiency"
-                    secondary="15% better than last month"
-                  />
+                <ListItem button onClick={() => navigate('/manager/analytics')}>
+                  <ListItemIcon><AnalyticsIcon /></ListItemIcon>
+                  <ListItemText primary="View Team Analytics" />
                 </ListItem>
               </List>
             </Paper>
@@ -191,4 +93,4 @@ function ManagerDashboard() {
   );
 }
 
-export default ManagerDashboard; 
+export default ManagerDashboard;

@@ -1,155 +1,88 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { fetchDashboardSummary } from '../../store/slices/analyticsSlice';
 import {
-  Box,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
+  Box, Container, Grid, Paper, Typography, List, ListItem, ListItemIcon,
+  ListItemText, Divider, CircularProgress, Alert
 } from '@mui/material';
 import {
   People as PeopleIcon,
   Receipt as ReceiptIcon,
-  Warning as WarningIcon,
-  TrendingUp as TrendingUpIcon,
+  Assessment as AssessmentIcon,
 } from '@mui/icons-material';
 
-function AdminDashboard() {
-  const stats = {
-    totalUsers: 150,
-    pendingApprovals: 25,
-    totalExpenses: 45000,
-    monthlyGrowth: 12.5,
-  };
+// Reusable StatCard component
+const StatCard = ({ title, value, icon }) => (
+  <Paper sx={{ p: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+    {icon}
+    <Box>
+      <Typography variant="h6">{value}</Typography>
+      <Typography variant="body2" color="text.secondary">{title}</Typography>
+    </Box>
+  </Paper>
+);
 
-  const recentActivities = [
-    { type: 'user', message: 'New user registration: John Smith', time: '2 minutes ago' },
-    { type: 'expense', message: 'Large expense submitted: $2,500', time: '15 minutes ago' },
-    { type: 'approval', message: 'Expense approved by Manager', time: '1 hour ago' },
-    { type: 'warning', message: 'Budget threshold reached for Marketing', time: '2 hours ago' },
-  ];
+function AdminDashboard() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { dashboardSummary: stats, loading, error } = useSelector((state) => state.analytics);
+
+  useEffect(() => {
+    dispatch(fetchDashboardSummary());
+  }, [dispatch]);
+
+  // Conditional rendering for loading and error states
+  if (loading) {
+    return <Box display="flex" justifyContent="center" alignItems="center" height="50vh"><CircularProgress /></Box>;
+  }
+  if (error) {
+    return <Alert severity="error">Could not load dashboard data: {error.message}</Alert>;
+  }
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          System Overview
-        </Typography>
+        <Typography variant="h4" gutterBottom>System Overview</Typography>
 
         <Grid container spacing={3}>
-          {/* Statistics Cards */}
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <PeopleIcon sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.totalUsers}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Total Users
-                </Typography>
-              </Box>
-            </Paper>
+          {/* Statistics Cards using live data */}
+          <Grid item xs={12} sm={6} md={4}>
+            <StatCard 
+              title="Total Users" 
+              value={stats.totalUsers || 0} 
+              icon={<PeopleIcon sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />} 
+            />
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <ReceiptIcon sx={{ fontSize: 40, color: 'warning.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.pendingApprovals}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Pending Approvals
-                </Typography>
-              </Box>
-            </Paper>
+          <Grid item xs={12} sm={6} md={4}>
+            <StatCard 
+              title="Pending Approvals" 
+              value={stats.pendingApprovals || 0} 
+              icon={<ReceiptIcon sx={{ fontSize: 40, color: 'warning.main', mr: 2 }} />} 
+            />
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <TrendingUpIcon sx={{ fontSize: 40, color: 'success.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">${stats.totalExpenses.toLocaleString()}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Total Expenses
-                </Typography>
-              </Box>
-            </Paper>
+          <Grid item xs={12} sm={6} md={4}>
+             <StatCard 
+              title="Total Expense Value" 
+              value={`$${(stats.totalExpensesValue || 0).toLocaleString()}`} 
+              icon={<AssessmentIcon sx={{ fontSize: 40, color: 'success.main', mr: 2 }} />} 
+            />
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Paper sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
-              <WarningIcon sx={{ fontSize: 40, color: 'error.main', mr: 2 }} />
-              <Box>
-                <Typography variant="h6">{stats.monthlyGrowth}%</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Monthly Growth
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-
-          {/* Recent Activities */}
-          <Grid item xs={12} md={6}>
+          {/* Quick Actions Panel */}
+          <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Recent Activities
-              </Typography>
+              <Typography variant="h6" gutterBottom>Quick Actions</Typography>
               <List>
-                {recentActivities.map((activity, index) => (
-                  <React.Fragment key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        {activity.type === 'user' && <PeopleIcon />}
-                        {activity.type === 'expense' && <ReceiptIcon />}
-                        {activity.type === 'approval' && <TrendingUpIcon />}
-                        {activity.type === 'warning' && <WarningIcon />}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={activity.message}
-                        secondary={activity.time}
-                      />
-                    </ListItem>
-                    {index < recentActivities.length - 1 && <Divider />}
-                  </React.Fragment>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-
-          {/* Quick Actions */}
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Quick Actions
-              </Typography>
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <PeopleIcon />
-                  </ListItemIcon>
+                <ListItem button onClick={() => navigate('/admin/users')}>
+                  <ListItemIcon><PeopleIcon /></ListItemIcon>
                   <ListItemText primary="Manage Users" />
                 </ListItem>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <ReceiptIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Review Pending Approvals" />
-                </ListItem>
-                <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <WarningIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="View Budget Alerts" />
-                </ListItem>
-                <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <TrendingUpIcon />
-                  </ListItemIcon>
+                <ListItem button onClick={() => navigate('/admin/reports')}>
+                  <ListItemIcon><AssessmentIcon /></ListItemIcon>
                   <ListItemText primary="Generate Reports" />
                 </ListItem>
               </List>
@@ -161,4 +94,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard; 
+export default AdminDashboard;

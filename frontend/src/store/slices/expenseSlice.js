@@ -64,6 +64,16 @@ export const updateExpenseStatus = createAsyncThunk(
   }
 );
 
+export const fetchTeamExpenses = createAsyncThunk(
+  'expenses/fetchTeamExpenses',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get('/expenses/team');
+      return response.data;
+    } catch (error) { return rejectWithValue(error.response.data); }
+  }
+);
+
 const initialState = {
   items: [],
   loading: false,
@@ -129,6 +139,18 @@ const expenseSlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload.id);
       })
       .addCase(updateExpenseStatus.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(fetchTeamExpenses.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTeamExpenses.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchTeamExpenses.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },

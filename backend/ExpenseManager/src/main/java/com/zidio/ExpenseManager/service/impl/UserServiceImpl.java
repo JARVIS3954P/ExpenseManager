@@ -1,26 +1,31 @@
 package com.zidio.ExpenseManager.service.impl;
 
 import com.zidio.ExpenseManager.dto.UserDTO;
-import com.zidio.ExpenseManager.enums.UserRole;
 import com.zidio.ExpenseManager.model.User;
 import com.zidio.ExpenseManager.repository.UserRepository;
 import com.zidio.ExpenseManager.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -36,11 +41,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        User manager = null;
+        if (userDTO.getManagerId() != null) {
+            manager = userRepository.findById(userDTO.getManagerId())
+                    .orElseThrow(() -> new RuntimeException("Manager not found"));
+        }
+
         User user = User.builder()
                 .fullName(userDTO.getUsername())
                 .email(userDTO.getEmail())
-                .password(userDTO.getEmail()) // Replace with encoded password logic
+                // For simplicity, we'll set a default password. In a real app, this would be a generated email link.
+                .password(passwordEncoder.encode("password123"))
                 .role(userDTO.getRole())
+                .manager(manager)
                 .build();
         return mapToDTO(userRepository.save(user));
     }
@@ -65,9 +78,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepository.findById(userDTO.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        User manager = null;
+        if (userDTO.getManagerId() != null) {
+            manager = userRepository.findById(userDTO.getManagerId())
+                    .orElseThrow(() -> new RuntimeException("Manager not found"));
+        }
+
         user.setFullName(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
+        user.setManager(manager);
 
         return mapToDTO(userRepository.save(user));
     }
@@ -90,6 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .username(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .managerId(user.getManager()!=null?user.getManager().getId():null)
                 .build();
     }
 }

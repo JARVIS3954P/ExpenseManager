@@ -24,4 +24,6 @@ public class UserDTO {
 
     @NotNull(message = "User role is required")
     private UserRole role;
+
+    private Long managerId;
 }

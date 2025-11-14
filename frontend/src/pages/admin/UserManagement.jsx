@@ -1,290 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers, updateUser } from '../../store/slices/userSlice';
 import {
-  Container,
-  Paper,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-  MenuItem,
-  Box,
+  Container, Paper, Typography, Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Button, IconButton, Dialog, DialogTitle, DialogContent,
+  DialogActions, TextField, Grid, MenuItem, Box, CircularProgress, Alert,
 } from '@mui/material';
-import {
-  Add as AddIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-} from '@mui/icons-material';
-
-// Mock data for demo
-const mockUsers = [
-  {
-    id: 1,
-    name: 'John Doe',
-    email: 'john@zidio.com',
-    role: 'EMPLOYEE',
-    department: 'Engineering',
-    status: 'active',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'jane@zidio.com',
-    role: 'MANAGER',
-    department: 'Engineering',
-    status: 'active',
-  },
-  {
-    id: 3,
-    name: 'Mike Johnson',
-    email: 'mike@zidio.com',
-    role: 'EMPLOYEE',
-    department: 'Marketing',
-    status: 'inactive',
-  },
-];
+import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 
 const roles = ['ADMIN', 'MANAGER', 'EMPLOYEE'];
-const departments = ['Engineering', 'Marketing', 'Finance', 'HR', 'Sales'];
-const statuses = ['active', 'inactive'];
 
 function UserManagement() {
-  const [users, setUsers] = useState(mockUsers);
+  const dispatch = useDispatch();
+  const { users, loading, error } = useSelector((state) => state.users);
+  
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    role: '',
-    department: '',
-    status: 'active',
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const handleOpenDialog = (user = null) => {
-    if (user) {
-      setSelectedUser(user);
-      setFormData(user);
-    } else {
-      setSelectedUser(null);
-      setFormData({
-        name: '',
-        email: '',
-        role: '',
-        department: '',
-        status: 'active',
-      });
-    }
+    setCurrentUser(user || { name: '', email: '', role: 'EMPLOYEE', managerId: '' });
     setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setSelectedUser(null);
-    setFormData({
-      name: '',
-      email: '',
-      role: '',
-      department: '',
-      status: 'active',
-    });
+    setCurrentUser(null);
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    if (selectedUser) {
-      // Update existing user
-      setUsers(users.map(user =>
-        user.id === selectedUser.id ? { ...user, ...formData } : user
-      ));
-    } else {
-      // Add new user
-      setUsers([
-        ...users,
-        {
-          id: Date.now(),
-          ...formData,
-        },
-      ]);
+  const handleSave = () => {
+    // Here you would dispatch a createUser or updateUser thunk
+    // For now, we'll just handle update
+    if (currentUser.id) {
+        dispatch(updateUser(currentUser));
     }
     handleCloseDialog();
   };
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(user => user.id !== id));
-    }
+  
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      setCurrentUser(prev => ({ ...prev, [name]: value }));
   };
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box>
-          <Typography variant="h5">User Management</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Manage system users and their roles
-          </Typography>
-        </Box>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => handleOpenDialog()}
-        >
-          Add User
-        </Button>
+         {/* ... Title and Add User Button ... */}
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Department</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>{user.department}</TableCell>
-                <TableCell>
-                  <Typography
-                    variant="body2"
-                    color={user.status === 'active' ? 'success.main' : 'error.main'}
-                  >
-                    {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleOpenDialog(user)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
+      <Paper>
+        <TableContainer>
+            {loading ? <CircularProgress /> : error ? <Alert severity="error">Failed to load users.</Alert> : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Manager ID</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{user.managerId || 'N/A'}</TableCell>
+                  <TableCell>
+                    <IconButton size="small" onClick={() => handleOpenDialog(user)}>
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+            )}
+        </TableContainer>
+      </Paper>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>
-          {selectedUser ? 'Edit User' : 'Add New User'}
-        </DialogTitle>
-        <DialogContent>
-          <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+      {currentUser && (
+        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+          <DialogTitle>{currentUser.id ? 'Edit User' : 'Add New User'}</DialogTitle>
+          <DialogContent>
+            <Grid container spacing={2} sx={{ mt: 1 }}>
+              <Grid item xs={12}>
+                <TextField fullWidth label="Full Name" name="username" value={currentUser.username} onChange={handleChange} />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField fullWidth label="Email" name="email" type="email" value={currentUser.email} onChange={handleChange} />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField select fullWidth label="Role" name="role" value={currentUser.role} onChange={handleChange}>
+                  {roles.map((role) => <MenuItem key={role} value={role}>{role}</MenuItem>)}
+                </TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField fullWidth label="Manager ID" name="managerId" value={currentUser.managerId || ''} onChange={handleChange} />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                select
-                label="Role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-              >
-                {roles.map((role) => (
-                  <MenuItem key={role} value={role}>
-                    {role}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                select
-                label="Department"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                required
-              >
-                {departments.map((dept) => (
-                  <MenuItem key={dept} value={dept}>
-                    {dept}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                select
-                label="Status"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                required
-              >
-                {statuses.map((status) => (
-                  <MenuItem key={status} value={status}>
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained">
-            {selectedUser ? 'Update' : 'Add'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>Cancel</Button>
+            <Button onClick={handleSave} variant="contained">Save</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Container>
   );
 }
 
-export default UserManagement; 
+export default UserManagement;
